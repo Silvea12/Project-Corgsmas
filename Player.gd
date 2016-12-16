@@ -35,7 +35,10 @@ func _fixed_process(delta):
 			air_jumps += 1
 		
 		if air_jumps == 1:
-			animations.play("Flip")
+			if sprite.is_flipped_h():
+				animations.play_backwards("Flip")
+			else:
+				animations.play("Flip")
 		velocity.y = -JUMP_VELOCITY
 	
 	velocity.y += GRAVITY*delta
