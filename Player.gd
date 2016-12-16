@@ -8,6 +8,7 @@ onready var sprite = get_node("Sprite")
 
 var velocity = Vector2()
 var grounded = true
+var falling_through = false
 
 func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
@@ -21,9 +22,19 @@ func _fixed_process(delta):
 	
 	if Input.is_action_pressed("jump") and grounded:
 		velocity.y = -JUMP_VELOCITY
-		
 	
 	velocity.y += GRAVITY*delta
+	
+	if Input.is_action_pressed("drop_down") and !falling_through:
+		falling_through = true
+		var platforms = get_tree().get_nodes_in_group("platforms")
+		for i in platforms:
+			i.add_collision_exception_with(self)
+	elif !Input.is_action_pressed("drop_down") and falling_through:
+		falling_through = false
+		var platforms = get_tree().get_nodes_in_group("platforms")
+		for i in platforms:
+			i.remove_collision_exception_with(self)
 	
 	var movement = move(velocity)
 	
