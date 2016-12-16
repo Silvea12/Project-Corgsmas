@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/corgi.tex" type="Texture" id=2]
+[ext_resource path="res://sprites/canon.tex" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -15,7 +16,7 @@ length = 0.6
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:transform/rot")
+tracks/0/path = NodePath("CorgiSprite:transform/rot")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.6 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, -360.0 ] }
@@ -31,13 +32,25 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="CorgiSprite" type="Sprite" parent="."]
 
 transform/scale = Vector2( 4.5, 4.5 )
 texture = ExtResource( 2 )
 
+[node name="CanonSprite" type="Sprite" parent="CorgiSprite"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 6, -9 )
+texture = ExtResource( 3 )
+offset = Vector2( 3, -14.5 )
+
+[node name="FirePos" type="Position2D" parent="CorgiSprite/CanonSprite"]
+
+transform/pos = Vector2( -8, -20 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
+visibility/visible = false
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

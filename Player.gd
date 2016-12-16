@@ -4,7 +4,7 @@ const GRAVITY = 50
 const MOVE_SPEED = 5
 const JUMP_VELOCITY = 15
 
-onready var sprite = get_node("Sprite")
+onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
 
 var velocity = Vector2()
