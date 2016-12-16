@@ -7,6 +7,7 @@ const JUMP_VELOCITY = 15
 onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
 onready var canon = get_node("CorgiSprite/CanonSprite")
+onready var crosshair = get_node("CanvasLayer/Crosshair")
 
 var velocity = Vector2()
 var grounded = true
@@ -21,20 +22,10 @@ var aim_angle = 0
 func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
 		velocity.x = MOVE_SPEED
-		sprite.set_flip_h(true)
-		canon.set_scale(Vector2(-1, 1))
-		var old_pos = canon.get_pos()
-		if old_pos.x > 0:
-			old_pos.x *= -1
-		canon.set_pos(old_pos)
+		flip_corgi(true)
 	elif Input.is_action_pressed("left"):
 		velocity.x = -MOVE_SPEED
-		canon.set_scale(Vector2(1, 1))
-		var old_pos = canon.get_pos()
-		if old_pos.x < 0:
-			old_pos.x *= -1
-		canon.set_pos(old_pos)
-		sprite.set_flip_h(false)
+		flip_corgi(false)
 	else:
 		velocity.x = 0
 	
@@ -97,14 +88,45 @@ func _process(delta):
 			sprite.set_rot(-flip_angle)
 			canon.set_rot(aim_angle+flip_angle)
 
+func rotate_canon():
+	var rot = canon.get_global_pos().angle_to_point(canon.get_global_mouse_pos() - Vector2(0, -34))
+	var sprite_flipped = sprite.is_flipped_h()
+	if sprite_flipped:
+		rot += PI/2
+	else:
+		rot -= PI/2
+	if abs(rot) > PI/2:
+		canon.set_flip_h(!sprite_flipped)
+		rot -= PI
+	else:
+		canon.set_flip_h(sprite_flipped)
+	canon.set_rot(rot)
+
+func flip_corgi(flip_direction):
+	if flip_direction != sprite.is_flipped_h():
+		sprite.set_flip_h(flip_direction)
+		var old_pos = canon.get_pos()
+		if (flip_direction and old_pos.x > 0) or (!flip_direction and old_pos.x < 0):
+			old_pos.x *= -1
+		canon.set_pos(old_pos)
+		rotate_canon()
+
 func _input(event):
 	if event.is_action_pressed("fire"):
 		canon.emit_signal("fire")
 	elif event.type == InputEvent.MOUSE_MOTION:
-		aim_angle += event.relative_x/100.0
-		if abs(aim_angle) > PI*1/3:
-			aim_angle = PI*1/3*sign(aim_angle)
-		canon.set_rot(aim_angle)
+		var viewport_rect = get_viewport_rect().end
+		if event.pos.x > viewport_rect.x:
+			event.pos.x = viewport_rect.x
+		elif event.pos.x < 0:
+			event.pos.x = 0
+		if event.pos.y > viewport_rect.y:
+			event.pos.y = viewport_rect.y
+		elif event.pos.y < 0:
+			event.pos.y = 0
+		get_viewport().warp_mouse(event.pos)
+		crosshair.set_pos(event.pos)
+		rotate_canon()
 
 func _ready():
 	set_fixed_process(true)

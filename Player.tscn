@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/corgi.tex" type="Texture" id=2]
 [ext_resource path="res://sprites/canon.tex" type="Texture" id=3]
+[ext_resource path="res://sprites/crosshair.tex" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -69,5 +70,17 @@ drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Crosshair" type="Sprite" parent="CanvasLayer"]
+
+transform/scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
 
 
