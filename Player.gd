@@ -23,11 +23,14 @@ func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
 		velocity.x = MOVE_SPEED
 		flip_corgi(true)
+		sprite.set_animation("walk")
 	elif Input.is_action_pressed("left"):
 		velocity.x = -MOVE_SPEED
 		flip_corgi(false)
+		sprite.set_animation("walk")
 	else:
 		velocity.x = 0
+		sprite.set_animation("idle")
 	
 	var jumping = false
 	if Input.is_action_pressed("jump") and !trying_jump:
