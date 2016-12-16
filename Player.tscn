@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/corgi.tex" type="Texture" id=2]
@@ -14,22 +14,6 @@ extents = Vector2( 58.5, 58.5 )
 resource/name = "CorgiCanon"
 script/source = "extends Sprite\n\nsignal fire\n\nonready var fire_pos = get_node(\"FirePos\").get_pos()\n\nfunc _fire_weapon():\n\tprint(\"FIRE\")\n\nfunc _ready():\n\tconnect(\"fire\", self, \"_fire_weapon\")"
 
-[sub_resource type="Animation" id=3]
-
-length = 0.6
-loop = false
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("CorgiSprite:transform/rot")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.6 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, -360.0 ] }
-tracks/1/type = "value"
-tracks/1/path = NodePath("CorgiSprite/CanonSprite:transform/rot")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = { "times":FloatArray( 0, 0.6 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 360.0 ] }
-
 [node name="Player" type="KinematicBody2D"]
 
 input/pickable = false
@@ -43,20 +27,21 @@ script/script = ExtResource( 1 )
 
 [node name="CorgiSprite" type="Sprite" parent="."]
 
+transform/rot = -360.0
 transform/scale = Vector2( 4.5, 4.5 )
 texture = ExtResource( 2 )
 
 [node name="CanonSprite" type="Sprite" parent="CorgiSprite"]
 
 visibility/behind_parent = true
-transform/pos = Vector2( 6, -9 )
+transform/rot = 360.0
 texture = ExtResource( 3 )
-offset = Vector2( 3, -14.5 )
+offset = Vector2( 0, -13 )
 script/script = SubResource( 2 )
 
 [node name="FirePos" type="Position2D" parent="CorgiSprite/CanonSprite"]
 
-transform/pos = Vector2( -8, -20 )
+transform/pos = Vector2( -12.5, -21 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
@@ -67,6 +52,7 @@ _update_shape_index = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+transform/pos = Vector2( 0.323532, 0 )
 anchor_mode = 1
 rotating = false
 current = true
@@ -83,16 +69,5 @@ drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("..")
-anims/Flip = SubResource( 3 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
 
 

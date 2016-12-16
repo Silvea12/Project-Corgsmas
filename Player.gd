@@ -13,6 +13,10 @@ var grounded = true
 var falling_through = false
 var trying_jump = false
 var air_jumps = 0
+var is_flipping = false
+
+var flip_angle = 0
+var aim_angle = 0
 
 func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
@@ -46,10 +50,7 @@ func _fixed_process(delta):
 			air_jumps += 1
 		
 		if air_jumps == 1:
-			if sprite.is_flipped_h():
-				animations.play_backwards("Flip")
-			else:
-				animations.play("Flip")
+			is_flipping = true
 		velocity.y = -JUMP_VELOCITY
 	
 	velocity.y += GRAVITY*delta
@@ -80,10 +81,33 @@ func _fixed_process(delta):
 	else:
 		grounded = false
 
+func _process(delta):
+	if is_flipping:
+		flip_angle += PI*3.3*delta
+		if flip_angle >= PI*2:
+			flip_angle = 0
+			is_flipping = false
+			sprite.set_rot(0)
+			return
+		
+		if sprite.is_flipped_h():
+			sprite.set_rot(flip_angle)
+			canon.set_rot(aim_angle-flip_angle)
+		else:
+			sprite.set_rot(-flip_angle)
+			canon.set_rot(aim_angle+flip_angle)
+
 func _input(event):
 	if event.is_action_pressed("fire"):
 		canon.emit_signal("fire")
+	elif event.type == InputEvent.MOUSE_MOTION:
+		aim_angle += event.relative_x/100.0
+		if abs(aim_angle) > PI*1/3:
+			aim_angle = PI*1/3*sign(aim_angle)
+		canon.set_rot(aim_angle)
 
 func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
+	set_process(true)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
