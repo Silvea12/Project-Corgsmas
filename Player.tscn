@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/corgi.tex" type="Texture" id=2]
@@ -9,9 +9,13 @@
 custom_solver_bias = 0.0
 extents = Vector2( 58.5, 58.5 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="GDScript" id=2]
 
-resource/name = "Flip"
+resource/name = "CorgiCanon"
+script/source = "extends Sprite\n\nsignal fire\n\nonready var fire_pos = get_node(\"FirePos\").get_pos()\n\nfunc _fire_weapon():\n\tprint(\"FIRE\")\n\nfunc _ready():\n\tconnect(\"fire\", self, \"_fire_weapon\")"
+
+[sub_resource type="Animation" id=3]
+
 length = 0.6
 loop = false
 step = 0.1
@@ -20,6 +24,11 @@ tracks/0/path = NodePath("CorgiSprite:transform/rot")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.6 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, -360.0 ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("CorgiSprite/CanonSprite:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = { "times":FloatArray( 0, 0.6 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 360.0 ] }
 
 [node name="Player" type="KinematicBody2D"]
 
@@ -43,6 +52,7 @@ visibility/behind_parent = true
 transform/pos = Vector2( 6, -9 )
 texture = ExtResource( 3 )
 offset = Vector2( 3, -14.5 )
+script/script = SubResource( 2 )
 
 [node name="FirePos" type="Position2D" parent="CorgiSprite/CanonSprite"]
 
@@ -79,7 +89,7 @@ drag_margin/bottom = 0.2
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Flip = SubResource( 2 )
+anims/Flip = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

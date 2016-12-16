@@ -6,6 +6,7 @@ const JUMP_VELOCITY = 15
 
 onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
+onready var canon = get_node("CorgiSprite/CanonSprite")
 
 var velocity = Vector2()
 var grounded = true
@@ -17,8 +18,18 @@ func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
 		velocity.x = MOVE_SPEED
 		sprite.set_flip_h(true)
+		canon.set_scale(Vector2(-1, 1))
+		var old_pos = canon.get_pos()
+		if old_pos.x > 0:
+			old_pos.x *= -1
+		canon.set_pos(old_pos)
 	elif Input.is_action_pressed("left"):
 		velocity.x = -MOVE_SPEED
+		canon.set_scale(Vector2(1, 1))
+		var old_pos = canon.get_pos()
+		if old_pos.x < 0:
+			old_pos.x *= -1
+		canon.set_pos(old_pos)
 		sprite.set_flip_h(false)
 	else:
 		velocity.x = 0
@@ -69,5 +80,10 @@ func _fixed_process(delta):
 	else:
 		grounded = false
 
+func _input(event):
+	if event.is_action_pressed("fire"):
+		canon.emit_signal("fire")
+
 func _ready():
 	set_fixed_process(true)
+	set_process_input(true)
