@@ -1,0 +1,136 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://sprites/background.png" type="Texture" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1311.85, 18.6087 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 35.5729, 3.05756 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 63.1459, 3.05756 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 70.693, 3.05756 )
+
+[node name="Main" type="Node2D"]
+
+[node name="background" type="Sprite" parent="."]
+
+transform/pos = Vector2( 0, 1.50734 )
+transform/scale = Vector2( 2.02695, 2.02695 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Boundaries" type="Node2D" parent="background"]
+
+transform/scale = Vector2( 0.493353, 0.493353 )
+
+[node name="Floor" type="StaticBody2D" parent="background/Boundaries"]
+
+editor/display_folded = true
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1303.42, 577.114 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Boundaries/Floor"]
+
+transform/pos = Vector2( 1303.42, 577.114 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Arm Rests" type="Node2D" parent="background/Boundaries"]
+
+[node name="LArm" type="StaticBody2D" parent="background/Boundaries/Arm Rests"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 840.05, 436.79 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 10.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Boundaries/Arm Rests/LArm"]
+
+transform/pos = Vector2( 840.05, 436.79 )
+transform/scale = Vector2( 1, 1 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="RArm" type="StaticBody2D" parent="background/Boundaries/Arm Rests"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1130.41, 438.379 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 10.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Boundaries/Arm Rests/RArm"]
+
+transform/pos = Vector2( 1130.41, 438.379 )
+transform/scale = Vector2( 1, 1 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Seat" type="StaticBody2D" parent="background/Boundaries/Arm Rests"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 977.089, 468.568 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 10.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Boundaries/Arm Rests/Seat"]
+
+transform/pos = Vector2( 977.089, 468.568 )
+transform/scale = Vector2( 1, 1 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 179.396, 470.76 )
+transform/scale = Vector2( 0.41082, 0.41082 )
+
+
