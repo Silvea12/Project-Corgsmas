@@ -93,6 +93,7 @@ func _process(delta):
 
 func rotate_canon():
 	var rot = canon.get_global_pos().angle_to_point(canon.get_global_mouse_pos() - Vector2(0, -34))
+	var fire_pos = canon.get_node("FirePos").get_pos()
 	var sprite_flipped = sprite.is_flipped_h()
 	if sprite_flipped:
 		rot += PI/2
@@ -100,9 +101,15 @@ func rotate_canon():
 		rot -= PI/2
 	if abs(rot) > PI/2:
 		canon.set_flip_h(!sprite_flipped)
+		if !sprite_flipped:
+			fire_pos.x = abs(fire_pos.x)
 		rot -= PI
 	else:
 		canon.set_flip_h(sprite_flipped)
+		if !sprite_flipped:
+			fire_pos.x = -abs(fire_pos.x)
+	
+	canon.get_node("FirePos").set_pos(fire_pos)
 	canon.set_rot(rot)
 
 func flip_corgi(flip_direction):

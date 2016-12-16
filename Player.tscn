@@ -15,15 +15,15 @@
 custom_solver_bias = 0.0
 extents = Vector2( 58.5, 58.5 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 
 resource/name = "CorgiAnimation"
 animations = [ { "frames":[ ExtResource( 2 ) ], "loop":true, "name":"idle", "speed":5.0 }, { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ], "loop":true, "name":"walk", "speed":8.0 } ]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=3]
 
-resource/name = "CorgiCanon"
-script/source = "extends Sprite\n\nsignal fire\n\nonready var fire_pos = get_node(\"FirePos\").get_pos()\n\nfunc _fire_weapon():\n\tprint(\"FIRE\")\n\nfunc _ready():\n\tconnect(\"fire\", self, \"_fire_weapon\")"
+resource/name = "CanonFire"
+script/source = "extends Sprite\n\nsignal fire\n\nfunc _fire_weapon():\n\tprint(\"FIRE\")\n\nfunc _ready():\n\tconnect(\"fire\", self, \"_fire_weapon\")"
 
 [node name="Player" type="KinematicBody2D"]
 
@@ -40,7 +40,7 @@ script/script = ExtResource( 1 )
 
 transform/rot = -360.0
 transform/scale = Vector2( 4.5, 4.5 )
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "idle"
 playing = true
 
@@ -50,7 +50,7 @@ visibility/behind_parent = true
 transform/rot = 1.00179e-05
 texture = ExtResource( 8 )
 offset = Vector2( 0, -13 )
-script/script = SubResource( 2 )
+script/script = SubResource( 3 )
 
 [node name="FirePos" type="Position2D" parent="CorgiSprite/CanonSprite"]
 
