@@ -56,8 +56,6 @@ texture = ExtResource( 2 )
 
 [node name="Arm Rests" type="Node2D" parent="background/couch"]
 
-editor/display_folded = true
-
 [node name="LArm" type="StaticBody2D" parent="background/couch/Arm Rests" groups=[ "platforms" ]]
 
 editor/display_folded = true
@@ -134,8 +132,8 @@ input/pickable = false
 shapes/0/shape = SubResource( 4 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -41.9915, 4.44946 )
 shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
+collision/layers = 2
+collision/mask = 2
 one_way_collision/direction = Vector2( -1, 0 )
 one_way_collision/max_depth = 10.0
 constant_linear_velocity = Vector2( 0, 0 )
@@ -157,8 +155,8 @@ input/pickable = false
 shapes/0/shape = SubResource( 4 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 45.22, 6.89159 )
 shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
+collision/layers = 2
+collision/mask = 2
 one_way_collision/direction = Vector2( 1, 0 )
 one_way_collision/max_depth = 10.0
 constant_linear_velocity = Vector2( 0, 0 )
