@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const GRAVITY = 2000
 const MOVE_SPEED = 500
-const JUMP_VELOCITY = 700
+const JUMP_VELOCITY = 650
 
 onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
