@@ -1,15 +1,17 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/corgi_walk/corgiwalk_0.tex" type="Texture" id=2]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_1.tex" type="Texture" id=3]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_2.tex" type="Texture" id=4]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_3.tex" type="Texture" id=5]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_4.tex" type="Texture" id=6]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_5.tex" type="Texture" id=7]
-[ext_resource path="res://sprites/corgi frames/flip.tex" type="Texture" id=8]
-[ext_resource path="res://sprites/canon.tex" type="Texture" id=9]
-[ext_resource path="res://sprites/crosshair.tex" type="Texture" id=10]
+[ext_resource path="res://sprites/corgi frames/fall.tex" type="Texture" id=3]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_1.tex" type="Texture" id=4]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_2.tex" type="Texture" id=5]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_3.tex" type="Texture" id=6]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_4.tex" type="Texture" id=7]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_5.tex" type="Texture" id=8]
+[ext_resource path="res://sprites/corgi frames/flip.tex" type="Texture" id=9]
+[ext_resource path="res://sprites/corgi frames/jump.tex" type="Texture" id=10]
+[ext_resource path="res://sprites/canon.tex" type="Texture" id=11]
+[ext_resource path="res://sprites/crosshair.tex" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -19,7 +21,7 @@ extents = Vector2( 58.5, 58.5 )
 [sub_resource type="SpriteFrames" id=2]
 
 resource/name = "CorgiAnimation"
-animations = [ { "frames":[ ExtResource( 2 ) ], "loop":true, "name":"idle", "speed":5.0 }, { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ], "loop":true, "name":"walk", "speed":8.0 }, { "frames":[ ExtResource( 8 ) ], "loop":true, "name":"flip", "speed":5.0 } ]
+animations = [ { "frames":[ ExtResource( 2 ) ], "loop":true, "name":"idle", "speed":5.0 }, { "frames":[ ExtResource( 3 ) ], "loop":false, "name":"fall", "speed":5.0 }, { "frames":[ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ], "loop":true, "name":"walk", "speed":8.0 }, { "frames":[ ExtResource( 9 ) ], "loop":true, "name":"flip", "speed":5.0 }, { "frames":[ ExtResource( 10 ) ], "loop":false, "name":"jump", "speed":5.0 } ]
 
 [sub_resource type="GDScript" id=3]
 
@@ -49,7 +51,7 @@ playing = true
 
 visibility/behind_parent = true
 transform/rot = 1.00179e-05
-texture = ExtResource( 9 )
+texture = ExtResource( 11 )
 offset = Vector2( 0, -13 )
 script/script = SubResource( 3 )
 
@@ -94,6 +96,6 @@ scale = Vector2( 1, 1 )
 [node name="Crosshair" type="Sprite" parent="CanvasLayer"]
 
 transform/scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 10 )
+texture = ExtResource( 12 )
 
 

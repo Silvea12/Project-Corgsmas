@@ -147,6 +147,11 @@ func set_animation(animation):
 	if is_flipping:
 		old_anim = animation
 		sprite.set_animation("flip")
+	elif !grounded:
+		if velocity.y <= 0:
+			sprite.set_animation("jump")
+		else:
+			sprite.set_animation("fall")
 	elif animation == "":
 		sprite.set_animation(old_anim)
 	else:
