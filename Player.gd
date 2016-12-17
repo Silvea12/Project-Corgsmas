@@ -11,7 +11,7 @@ onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
 onready var canon = get_node("CanonSprite")
 onready var crosshair = get_node("CanvasLayer/Crosshair")
-onready var shadow = get_node("ShadowSprite")
+onready var shadow = get_node("CorgiSprite/ShadowSprite")
 onready var thought_bubble = get_node("ThoughtBubble")
 
 var velocity = Vector2()
@@ -83,7 +83,8 @@ func _fixed_process(delta):
 	
 	if is_colliding():
 		var n = get_collision_normal()
-		grounded = n.dot(Vector2(0, 1)) < -0.99
+		sprite.set_rot(n.angle() + PI)
+		grounded = n.dot(Vector2(0, 1)) < -0.6
 		if grounded:
 			air_jumps = 0
 			trying_jump = false
@@ -93,6 +94,7 @@ func _fixed_process(delta):
 			move(motion)
 	else:
 		grounded = false
+		sprite.set_rot(0)
 	
 	if did_move:
 		rotate_canon()

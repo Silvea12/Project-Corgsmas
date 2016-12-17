@@ -168,10 +168,9 @@ _update_shape_index = 0
 
 [node name="Boundaries" type="Node2D" parent="."]
 
-editor/display_folded = true
 transform/scale = Vector2( 0.493353, 0.493353 )
 
-[node name="Floor" type="StaticBody2D" parent="Boundaries"]
+[node name="Floor" type="StaticBody2D" parent="Boundaries" groups=[ "ground" ]]
 
 editor/display_folded = true
 input/pickable = false

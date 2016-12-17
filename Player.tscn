@@ -10,10 +10,10 @@
 [ext_resource path="res://sprites/corgi_walk/corgiwalk_3.tex" type="Texture" id=8]
 [ext_resource path="res://sprites/corgi_walk/corgiwalk_4.tex" type="Texture" id=9]
 [ext_resource path="res://sprites/corgi_walk/corgiwalk_5.tex" type="Texture" id=10]
-[ext_resource path="res://sprites/lvl1-assets/thinking_bubble.tex" type="Texture" id=11]
-[ext_resource path="res://sprites/lvl1-assets/sticks_1.tex" type="Texture" id=12]
-[ext_resource path="res://sprites/canon.tex" type="Texture" id=13]
-[ext_resource path="res://sprites/lvl1-assets/corgi_shadow.tex" type="Texture" id=14]
+[ext_resource path="res://sprites/lvl1-assets/corgi_shadow.tex" type="Texture" id=11]
+[ext_resource path="res://sprites/lvl1-assets/thinking_bubble.tex" type="Texture" id=12]
+[ext_resource path="res://sprites/lvl1-assets/sticks_1.tex" type="Texture" id=13]
+[ext_resource path="res://sprites/canon.tex" type="Texture" id=14]
 [ext_resource path="res://sprites/crosshair.tex" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -49,18 +49,25 @@ frames = SubResource( 2 )
 animation = "idle"
 playing = true
 
+[node name="ShadowSprite" type="Sprite" parent="CorgiSprite"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 1.39459, 15.0256 )
+transform/rot = 1.22133e-11
+texture = ExtResource( 11 )
+
 [node name="ThoughtBubble" type="Sprite" parent="."]
 
 visibility/visible = false
 transform/rot = -1.27662e-11
 transform/scale = Vector2( 1.03207, 1.03207 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 offset = Vector2( -25, -37.5 )
 
 [node name="Sticks" type="Sprite" parent="ThoughtBubble"]
 
 transform/pos = Vector2( 0.448147, -9.24097 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 offset = Vector2( -25, -37.5 )
 region_rect = Rect2( 0, 0, 50, 50 )
 
@@ -69,7 +76,7 @@ region_rect = Rect2( 0, 0, 50, 50 )
 editor/display_folded = true
 visibility/behind_parent = true
 transform/rot = -1.23038e-11
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 offset = Vector2( 0, -13 )
 script/script = SubResource( 3 )
 
@@ -77,15 +84,9 @@ script/script = SubResource( 3 )
 
 transform/pos = Vector2( -12.5, -21 )
 
-[node name="ShadowSprite" type="Sprite" parent="."]
-
-visibility/behind_parent = true
-transform/pos = Vector2( 1.39459, 15.0256 )
-transform/rot = -1.00179e-05
-texture = ExtResource( 14 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
+visibility/visible = false
 transform/pos = Vector2( 0, 2 )
 shape = SubResource( 1 )
 trigger = false
