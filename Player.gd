@@ -110,6 +110,7 @@ func rotate_canon():
 			fire_pos.x = -abs(fire_pos.x)
 	
 	canon.get_node("FirePos").set_pos(fire_pos)
+	aim_angle = rot
 	canon.set_rot(rot)
 
 func flip_corgi(flip_direction):
