@@ -1,8 +1,11 @@
 extends KinematicBody2D
 
-const GRAVITY = 2000
-const MOVE_SPEED = 500
-const JUMP_VELOCITY = 650
+const GRAVITY = 1500
+const MOVE_SPEED = 200
+const JUMP_VELOCITY = 450
+const KNOCKBACK_FORCE = 300
+
+signal hurt
 
 onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
@@ -12,15 +15,25 @@ onready var shadow = get_node("ShadowSprite")
 onready var thought_bubble = get_node("ThoughtBubble")
 
 var velocity = Vector2()
+var knockback = Vector2()
 var grounded = true
 var falling_through = false
 var trying_jump = false
 var air_jumps = 0
 var is_flipping = false
 
+var health = 5
+
 var flip_angle = 0
 var old_anim = ""
 var thought_shown_time = 0
+
+func _hurt(hit_pos):
+	knockback = Vector2(0,-1).rotated(get_angle_to(hit_pos))*KNOCKBACK_FORCE
+	health -= 1
+	if health == 0:
+		print("DED")
+		# TODO: Respawn
 
 func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
@@ -59,7 +72,11 @@ func _fixed_process(delta):
 		set_layer_mask_bit(1, true)
 		falling_through = false
 	
-	var motion = velocity*delta
+	knockback -= knockback.normalized()*delta*KNOCKBACK_FORCE*2
+	if knockback.length() < delta*KNOCKBACK_FORCE:
+		knockback = Vector2()
+	
+	var motion = (velocity+knockback)*delta
 	var did_move = motion.length_squared() > 0
 	
 	motion = move(motion)
@@ -181,6 +198,7 @@ func set_animation(animation):
 	shadow.set_hidden(!shadow_visible)
 
 func _ready():
+	connect("hurt", self, "_hurt")
 	set_fixed_process(true)
 	set_process_input(true)
 	set_process(true)

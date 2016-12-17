@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 signal hurt
-const MAX_SPEED = 500
-const ACCELERATION = 20
+const MAX_SPEED = 150
+const ACCELERATION = 30
 onready var player = get_tree().get_nodes_in_group("player")[0]
 
 var velocity = Vector2()
@@ -25,6 +25,7 @@ func _fixed_process(delta):
 	
 	if is_colliding():
 		var n = get_collision_normal()
+		get_collider().emit_signal("hurt", get_collision_pos())
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
 		if motion.length_squared() > 0.01:

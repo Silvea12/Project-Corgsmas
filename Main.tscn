@@ -1,259 +1,23 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://sprites/lvl1-assets/bg.tex" type="Texture" id=1]
-[ext_resource path="res://sprites/lvl1-assets/couch.tex" type="Texture" id=2]
-[ext_resource path="res://sprites/lvl1-assets/carpet.tex" type="Texture" id=3]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://BGM.opus" type="AudioStream" id=5]
-[ext_resource path="res://enemies/Bat.tscn" type="PackedScene" id=6]
-[ext_resource path="res://sprites/lvl1-assets/left_devider_front.tex" type="Texture" id=7]
-[ext_resource path="res://sprites/lvl1-assets/right_devider_front.tex" type="Texture" id=8]
-
-[sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
-extents = Vector2( 13.359, 3 )
-
-[sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
-extents = Vector2( 10.8407, 3 )
-
-[sub_resource type="RectangleShape2D" id=3]
-
-custom_solver_bias = 0.0
-extents = Vector2( 37.6969, 3 )
-
-[sub_resource type="RectangleShape2D" id=4]
-
-custom_solver_bias = 0.0
-extents = Vector2( 1.66049, 10 )
-
-[sub_resource type="RectangleShape2D" id=5]
-
-custom_solver_bias = 0.0
-extents = Vector2( 1092.96, 18.6087 )
-
-[sub_resource type="RectangleShape2D" id=6]
-
-custom_solver_bias = 0.0
-extents = Vector2( 30.7771, 0.810303 )
+[ext_resource path="res://Level1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BGM.opus" type="AudioStream" id=3]
+[ext_resource path="res://enemies/Bat.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Level1Foreground.tscn" type="PackedScene" id=5]
 
 [node name="Main" type="Node2D"]
 
-[node name="background" type="Sprite" parent="."]
+[node name="Level1" parent="." instance=ExtResource( 1 )]
 
-transform/pos = Vector2( 0, 1.50734 )
-transform/scale = Vector2( 2.34421, 2.34421 )
-texture = ExtResource( 1 )
-centered = false
+[node name="Player" parent="." instance=ExtResource( 2 )]
 
-[node name="couch" type="Sprite" parent="background"]
-
-transform/pos = Vector2( 389.139, 192.048 )
-transform/scale = Vector2( 0.808469, 0.808469 )
-texture = ExtResource( 2 )
-
-[node name="Arm Rests" type="Node2D" parent="background/couch"]
-
-[node name="LArm" type="StaticBody2D" parent="background/couch/Arm Rests" groups=[ "platforms" ]]
-
-editor/display_folded = true
-input/pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -60.4575, -4.5 )
-shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 2
-one_way_collision/direction = Vector2( 0, 1 )
-one_way_collision/max_depth = 10.0
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/couch/Arm Rests/LArm"]
-
-transform/pos = Vector2( -60.4575, -4.5 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
-
-[node name="RArm" type="StaticBody2D" parent="background/couch/Arm Rests" groups=[ "platforms" ]]
-
-editor/display_folded = true
-input/pickable = false
-shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 60.5, -0.5 )
-shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 2
-one_way_collision/direction = Vector2( 0, 1 )
-one_way_collision/max_depth = 10.0
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/couch/Arm Rests/RArm"]
-
-transform/pos = Vector2( 60.5, -0.5 )
-shape = SubResource( 2 )
-trigger = false
-_update_shape_index = 0
-
-[node name="Seat" type="StaticBody2D" parent="background/couch/Arm Rests" groups=[ "platforms" ]]
-
-editor/display_folded = true
-input/pickable = false
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 1, 12.5 )
-shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 2
-one_way_collision/direction = Vector2( 0, 1 )
-one_way_collision/max_depth = 10.0
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/couch/Arm Rests/Seat"]
-
-transform/pos = Vector2( 1, 12.5 )
-shape = SubResource( 3 )
-trigger = false
-_update_shape_index = 0
-
-[node name="LArmBorder" type="StaticBody2D" parent="background/couch/Arm Rests"]
-
-editor/display_folded = true
-input/pickable = false
-shapes/0/shape = SubResource( 4 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -41.9915, 4.44946 )
-shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 2
-one_way_collision/direction = Vector2( -1, 0 )
-one_way_collision/max_depth = 10.0
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/couch/Arm Rests/LArmBorder"]
-
-transform/pos = Vector2( -41.9915, 4.44946 )
-shape = SubResource( 4 )
-trigger = false
-_update_shape_index = 0
-
-[node name="RArmBorder" type="StaticBody2D" parent="background/couch/Arm Rests"]
-
-editor/display_folded = true
-input/pickable = false
-shapes/0/shape = SubResource( 4 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 45.22, 6.89159 )
-shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 2
-one_way_collision/direction = Vector2( 1, 0 )
-one_way_collision/max_depth = 10.0
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/couch/Arm Rests/RArmBorder"]
-
-transform/pos = Vector2( 45.22, 6.89159 )
-shape = SubResource( 4 )
-trigger = false
-_update_shape_index = 0
-
-[node name="Boundaries" type="Node2D" parent="background"]
-
-editor/display_folded = true
-transform/scale = Vector2( 0.493353, 0.493353 )
-
-[node name="Floor" type="StaticBody2D" parent="background/Boundaries" groups=[ "ground" ]]
-
-editor/display_folded = true
-input/pickable = false
-shapes/0/shape = SubResource( 5 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 1078.61, 499.295 )
-shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Boundaries/Floor"]
-
-transform/pos = Vector2( 1078.61, 499.295 )
-shape = SubResource( 5 )
-trigger = false
-_update_shape_index = 0
-
-[node name="LWall" type="StaticBody2D" parent="background/Boundaries"]
-
-input/pickable = false
-shapes/0/shape = SubResource( 6 )
-shapes/0/transform = Matrix32( 0.970033, 0.242972, -0.242972, 0.970033, 382.153, 219.42 )
-shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Boundaries/LWall"]
-
-transform/pos = Vector2( 382.153, 219.42 )
-transform/rot = -14.062
-shape = SubResource( 6 )
-trigger = false
-_update_shape_index = 0
-
-[node name="RWall" type="StaticBody2D" parent="background/Boundaries"]
-
-transform/pos = Vector2( 220.849, 13.7672 )
-input/pickable = false
-shapes/0/shape = SubResource( 6 )
-shapes/0/transform = Matrix32( 0.970661, -0.240453, 0.240453, 0.970661, 1467.17, 204.868 )
-shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Boundaries/RWall"]
-
-transform/pos = Vector2( 1467.17, 204.868 )
-transform/rot = 13.9133
-shape = SubResource( 6 )
-trigger = false
-_update_shape_index = 0
-
-[node name="carpet" type="Sprite" parent="background"]
-
-transform/pos = Vector2( 638.334, 231.338 )
-transform/scale = Vector2( 0.595781, 0.595781 )
-texture = ExtResource( 3 )
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 238.867, 505.621 )
-transform/scale = Vector2( 0.41082, 0.41082 )
+transform/pos = Vector2( 87.0594, 196.137 )
+transform/scale = Vector2( 0.998525, 0.998525 )
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 5 )
+stream/stream = ExtResource( 3 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -264,27 +28,12 @@ stream/buffering_ms = 500
 
 [node name="Enemies" type="Node2D" parent="."]
 
-editor/display_folded = true
+[node name="Bat" parent="Enemies" instance=ExtResource( 4 )]
 
-[node name="Bat" parent="Enemies" instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 622.531, 360.455 )
+transform/pos = Vector2( 255.09, 129.969 )
 
 [node name="Projectiles" type="Node2D" parent="."]
 
-[node name="Foreground" type="Node2D" parent="."]
-
-editor/display_folded = true
-transform/scale = Vector2( 2.34421, 2.34421 )
-
-[node name="left_devider_front" type="Sprite" parent="Foreground"]
-
-transform/pos = Vector2( 178, 128.643 )
-texture = ExtResource( 7 )
-
-[node name="right_devider_front" type="Sprite" parent="Foreground"]
-
-transform/pos = Vector2( 843, 128.5 )
-texture = ExtResource( 8 )
+[node name="Level1Foreground" parent="." instance=ExtResource( 5 )]
 
 
