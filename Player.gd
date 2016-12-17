@@ -6,10 +6,10 @@ const JUMP_VELOCITY = 650
 
 onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
-onready var canon = get_node("CorgiSprite/CanonSprite")
+onready var canon = get_node("CanonSprite")
 onready var crosshair = get_node("CanvasLayer/Crosshair")
-onready var shadow = get_node("CorgiSprite/Shadow")
-onready var thought_bubble = get_node("CorgiSprite/ThoughtBubble")
+onready var shadow = get_node("ShadowSprite")
+onready var thought_bubble = get_node("ThoughtBubble")
 
 var velocity = Vector2()
 var grounded = true
@@ -19,7 +19,6 @@ var air_jumps = 0
 var is_flipping = false
 
 var flip_angle = 0
-var aim_angle = 0
 var old_anim = ""
 var thought_shown_time = 0
 
@@ -104,12 +103,8 @@ func _process(delta):
 		
 		if sprite.is_flipped_h():
 			sprite.set_rot(flip_angle)
-			canon.set_rot(aim_angle-flip_angle)
-			thought_bubble.set_rot(-flip_angle)
 		else:
 			sprite.set_rot(-flip_angle)
-			canon.set_rot(aim_angle+flip_angle)
-			thought_bubble.set_rot(flip_angle)
 	else:
 		set_animation("")
 
@@ -133,7 +128,6 @@ func rotate_canon():
 		fire_pos.x *= -1
 	
 	canon.get_node("FirePos").set_pos(fire_pos)
-	aim_angle = rot
 	canon.set_rot(rot)
 
 func flip_corgi(flip_direction):

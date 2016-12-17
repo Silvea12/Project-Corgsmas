@@ -2,14 +2,14 @@
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/corgi_walk/corgiwalk_0.tex" type="Texture" id=2]
-[ext_resource path="res://sprites/corgi frames/fall.tex" type="Texture" id=3]
-[ext_resource path="res://sprites/corgi frames/flip.tex" type="Texture" id=4]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_1.tex" type="Texture" id=5]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_2.tex" type="Texture" id=6]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_3.tex" type="Texture" id=7]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_4.tex" type="Texture" id=8]
-[ext_resource path="res://sprites/corgi_walk/corgiwalk_5.tex" type="Texture" id=9]
-[ext_resource path="res://sprites/corgi frames/jump.tex" type="Texture" id=10]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_1.tex" type="Texture" id=3]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_2.tex" type="Texture" id=4]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_3.tex" type="Texture" id=5]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_4.tex" type="Texture" id=6]
+[ext_resource path="res://sprites/corgi_walk/corgiwalk_5.tex" type="Texture" id=7]
+[ext_resource path="res://sprites/corgi frames/jump.tex" type="Texture" id=8]
+[ext_resource path="res://sprites/corgi frames/flip.tex" type="Texture" id=9]
+[ext_resource path="res://sprites/corgi frames/fall.tex" type="Texture" id=10]
 [ext_resource path="res://sprites/lvl1-assets/thinking_bubble.tex" type="Texture" id=11]
 [ext_resource path="res://sprites/lvl1-assets/sticks_1.tex" type="Texture" id=12]
 [ext_resource path="res://sprites/canon.tex" type="Texture" id=13]
@@ -24,7 +24,7 @@ extents = Vector2( 58.5, 58.5 )
 [sub_resource type="SpriteFrames" id=2]
 
 resource/name = "CorgiAnimation"
-animations = [ { "frames":[ ExtResource( 2 ) ], "loop":true, "name":"idle", "speed":5.0 }, { "frames":[ ExtResource( 3 ) ], "loop":false, "name":"fall", "speed":5.0 }, { "frames":[ ExtResource( 4 ) ], "loop":true, "name":"flip", "speed":5.0 }, { "frames":[ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ], "loop":true, "name":"walk", "speed":8.0 }, { "frames":[ ExtResource( 10 ) ], "loop":false, "name":"jump", "speed":5.0 } ]
+animations = [ { "frames":[ ExtResource( 2 ) ], "loop":true, "name":"idle", "speed":5.0 }, { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ], "loop":true, "name":"walk", "speed":8.0 }, { "frames":[ ExtResource( 8 ) ], "loop":false, "name":"jump", "speed":5.0 }, { "frames":[ ExtResource( 9 ) ], "loop":true, "name":"flip", "speed":5.0 }, { "frames":[ ExtResource( 10 ) ], "loop":false, "name":"fall", "speed":5.0 } ]
 
 [sub_resource type="GDScript" id=3]
 
@@ -50,38 +50,42 @@ frames = SubResource( 2 )
 animation = "idle"
 playing = true
 
-[node name="ThoughtBubble" type="Sprite" parent="CorgiSprite"]
+[node name="ThoughtBubble" type="Sprite" parent="."]
 
+editor/display_folded = true
 visibility/visible = false
-transform/rot = 1.00179e-05
-transform/scale = Vector2( 0.737007, 0.737007 )
+transform/rot = -1.27662e-11
+transform/scale = Vector2( 3.31653, 3.31653 )
 texture = ExtResource( 11 )
 offset = Vector2( -30, -40 )
 
-[node name="Sticks" type="Sprite" parent="CorgiSprite/ThoughtBubble"]
+[node name="Sticks" type="Sprite" parent="ThoughtBubble"]
 
 transform/pos = Vector2( 0.448147, -9.24097 )
 texture = ExtResource( 12 )
 offset = Vector2( -30, -40 )
 region_rect = Rect2( 0, 0, 50, 50 )
 
-[node name="CanonSprite" type="Sprite" parent="CorgiSprite"]
+[node name="CanonSprite" type="Sprite" parent="."]
 
 editor/display_folded = true
 visibility/behind_parent = true
-transform/rot = 1.00179e-05
+transform/rot = -1.23038e-11
+transform/scale = Vector2( 4.5, 4.5 )
 texture = ExtResource( 13 )
 offset = Vector2( 0, -13 )
 script/script = SubResource( 3 )
 
-[node name="FirePos" type="Position2D" parent="CorgiSprite/CanonSprite"]
+[node name="FirePos" type="Position2D" parent="CanonSprite"]
 
 transform/pos = Vector2( -12.5, -21 )
 
-[node name="Shadow" type="Sprite" parent="CorgiSprite"]
+[node name="ShadowSprite" type="Sprite" parent="."]
 
 visibility/behind_parent = true
-transform/pos = Vector2( 0.643792, 15.2157 )
+transform/pos = Vector2( 2.89705, 68.4706 )
+transform/rot = -1.00179e-05
+transform/scale = Vector2( 4.5, 4.5 )
 texture = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
