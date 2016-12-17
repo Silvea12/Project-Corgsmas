@@ -37,7 +37,7 @@ centered = false
 
 transform/scale = Vector2( 0.493353, 0.493353 )
 
-[node name="Floor" type="StaticBody2D" parent="background/Boundaries"]
+[node name="Floor" type="StaticBody2D" parent="background/Boundaries" groups=[ "ground" ]]
 
 editor/display_folded = true
 input/pickable = false

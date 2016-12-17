@@ -18,19 +18,20 @@ var is_flipping = false
 
 var flip_angle = 0
 var aim_angle = 0
+var old_anim = ""
 
 func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
 		velocity.x = MOVE_SPEED
 		flip_corgi(true)
-		sprite.set_animation("walk")
+		set_animation("walk")
 	elif Input.is_action_pressed("left"):
 		velocity.x = -MOVE_SPEED
 		flip_corgi(false)
-		sprite.set_animation("walk")
+		set_animation("walk")
 	else:
 		velocity.x = 0
-		sprite.set_animation("idle")
+		set_animation("idle")
 	
 	var jumping = false
 	if Input.is_action_pressed("jump") and !trying_jump:
@@ -77,6 +78,7 @@ func _fixed_process(delta):
 
 func _process(delta):
 	if is_flipping:
+		set_animation("flip")
 		flip_angle += PI*3.3*delta
 		if flip_angle >= PI*2:
 			flip_angle = 0
@@ -90,6 +92,8 @@ func _process(delta):
 		else:
 			sprite.set_rot(-flip_angle)
 			canon.set_rot(aim_angle+flip_angle)
+	else:
+		set_animation("")
 
 func rotate_canon():
 	var rot = canon.get_global_pos().angle_to_point(canon.get_global_mouse_pos() - Vector2(0, -34))
@@ -138,6 +142,16 @@ func _input(event):
 		get_viewport().warp_mouse(event.pos)
 		crosshair.set_pos(event.pos)
 		rotate_canon()
+
+func set_animation(animation):
+	if is_flipping:
+		old_anim = animation
+		sprite.set_animation("flip")
+	elif animation == "":
+		sprite.set_animation(old_anim)
+	else:
+		old_anim = animation
+		sprite.set_animation(animation)
 
 func _ready():
 	set_fixed_process(true)
