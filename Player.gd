@@ -105,13 +105,14 @@ func rotate_canon():
 		rot -= PI/2
 	if abs(rot) > PI/2:
 		canon.set_flip_h(!sprite_flipped)
-		if !sprite_flipped:
-			fire_pos.x = abs(fire_pos.x)
+		fire_pos.x = abs(fire_pos.x)
 		rot -= PI
 	else:
+		fire_pos.x = -abs(fire_pos.x)
 		canon.set_flip_h(sprite_flipped)
-		if !sprite_flipped:
-			fire_pos.x = -abs(fire_pos.x)
+	
+	if sprite_flipped:
+		fire_pos.x *= -1
 	
 	canon.get_node("FirePos").set_pos(fire_pos)
 	aim_angle = rot
