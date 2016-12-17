@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Level2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://BGM.opus" type="AudioStream" id=3]
 [ext_resource path="res://enemies/Bat.tscn" type="PackedScene" id=4]
+[ext_resource path="res://enemies/Rat.tscn" type="PackedScene" id=5]
 
 [node name="Main" type="Node2D"]
 
@@ -32,6 +33,10 @@ stream/buffering_ms = 500
 [node name="Bat" parent="Enemies" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 255.09, 129.969 )
+
+[node name="Rat" parent="Enemies" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 187.512, 209.598 )
 
 [node name="Projectiles" type="Node2D" parent="."]
 
