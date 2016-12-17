@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=19 format=1]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/corgi_walk/corgiwalk_0.tex" type="Texture" id=2]
@@ -10,8 +10,11 @@
 [ext_resource path="res://sprites/corgi_walk/corgiwalk_4.tex" type="Texture" id=8]
 [ext_resource path="res://sprites/corgi_walk/corgiwalk_5.tex" type="Texture" id=9]
 [ext_resource path="res://sprites/corgi frames/jump.tex" type="Texture" id=10]
-[ext_resource path="res://sprites/canon.tex" type="Texture" id=11]
-[ext_resource path="res://sprites/crosshair.tex" type="Texture" id=12]
+[ext_resource path="res://sprites/lvl1-assets/thinking_bubble.tex" type="Texture" id=11]
+[ext_resource path="res://sprites/lvl1-assets/sticks_1.tex" type="Texture" id=12]
+[ext_resource path="res://sprites/canon.tex" type="Texture" id=13]
+[ext_resource path="res://sprites/lvl1-assets/corgi_shadow.tex" type="Texture" id=14]
+[ext_resource path="res://sprites/crosshair.tex" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -47,17 +50,39 @@ frames = SubResource( 2 )
 animation = "idle"
 playing = true
 
+[node name="ThoughtBubble" type="Sprite" parent="CorgiSprite"]
+
+visibility/visible = false
+transform/rot = 1.00179e-05
+transform/scale = Vector2( 0.737007, 0.737007 )
+texture = ExtResource( 11 )
+offset = Vector2( -30, -40 )
+
+[node name="Sticks" type="Sprite" parent="CorgiSprite/ThoughtBubble"]
+
+transform/pos = Vector2( 0.448147, -9.24097 )
+texture = ExtResource( 12 )
+offset = Vector2( -30, -40 )
+region_rect = Rect2( 0, 0, 50, 50 )
+
 [node name="CanonSprite" type="Sprite" parent="CorgiSprite"]
 
+editor/display_folded = true
 visibility/behind_parent = true
 transform/rot = 1.00179e-05
-texture = ExtResource( 11 )
+texture = ExtResource( 13 )
 offset = Vector2( 0, -13 )
 script/script = SubResource( 3 )
 
 [node name="FirePos" type="Position2D" parent="CorgiSprite/CanonSprite"]
 
 transform/pos = Vector2( -12.5, -21 )
+
+[node name="Shadow" type="Sprite" parent="CorgiSprite"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 0.643792, 15.2157 )
+texture = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
@@ -95,6 +120,6 @@ scale = Vector2( 1, 1 )
 [node name="Crosshair" type="Sprite" parent="CanvasLayer"]
 
 transform/scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 12 )
+texture = ExtResource( 15 )
 
 

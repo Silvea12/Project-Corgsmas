@@ -8,6 +8,8 @@ onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
 onready var canon = get_node("CorgiSprite/CanonSprite")
 onready var crosshair = get_node("CanvasLayer/Crosshair")
+onready var shadow = get_node("CorgiSprite/Shadow")
+onready var thought_bubble = get_node("CorgiSprite/ThoughtBubble")
 
 var velocity = Vector2()
 var grounded = true
@@ -19,6 +21,7 @@ var is_flipping = false
 var flip_angle = 0
 var aim_angle = 0
 var old_anim = ""
+var thought_shown_time = 0
 
 func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
@@ -58,6 +61,7 @@ func _fixed_process(delta):
 		falling_through = false
 	
 	var motion = velocity*delta
+	var did_move = motion.length_squared() > 0
 	
 	motion = move(motion)
 	
@@ -73,9 +77,23 @@ func _fixed_process(delta):
 			move(motion)
 	else:
 		grounded = false
+	
+	if did_move:
+		rotate_canon()
+
+func show_thought():
+	thought_shown_time = 5
+	thought_bubble.set_hidden(false)
 
 func _process(delta):
+	thought_shown_time -= delta
+	if thought_shown_time >= 0:
+		thought_shown_time -= delta
+	else:
+		thought_bubble.set_hidden(true)
+	
 	if is_flipping:
+		show_thought()
 		set_animation("flip")
 		flip_angle += PI*3.3*delta
 		if flip_angle >= PI*2:
@@ -87,9 +105,11 @@ func _process(delta):
 		if sprite.is_flipped_h():
 			sprite.set_rot(flip_angle)
 			canon.set_rot(aim_angle-flip_angle)
+			thought_bubble.set_rot(-flip_angle)
 		else:
 			sprite.set_rot(-flip_angle)
 			canon.set_rot(aim_angle+flip_angle)
+			thought_bubble.set_rot(flip_angle)
 	else:
 		set_animation("")
 
@@ -120,9 +140,14 @@ func flip_corgi(flip_direction):
 	if flip_direction != sprite.is_flipped_h():
 		sprite.set_flip_h(flip_direction)
 		var old_pos = canon.get_pos()
-		if (flip_direction and old_pos.x > 0) or (!flip_direction and old_pos.x < 0):
-			old_pos.x *= -1
+		#if (flip_direction and old_pos.x > 0) or (!flip_direction and old_pos.x < 0):
+		old_pos.x *= -1
 		canon.set_pos(old_pos)
+		var bubble_offset = thought_bubble.get_offset()
+		bubble_offset.x *= -1
+		thought_bubble.set_offset(bubble_offset)
+		thought_bubble.set_flip_h(flip_direction)
+		thought_bubble.get_child(0).set_offset(bubble_offset)
 		rotate_canon()
 
 func _input(event):
@@ -143,6 +168,7 @@ func _input(event):
 		rotate_canon()
 
 func set_animation(animation):
+	var shadow_visible = false
 	if is_flipping:
 		old_anim = animation
 		sprite.set_animation("flip")
@@ -152,10 +178,13 @@ func set_animation(animation):
 		else:
 			sprite.set_animation("fall")
 	elif animation == "":
+		shadow_visible = true
 		sprite.set_animation(old_anim)
 	else:
+		shadow_visible = true
 		old_anim = animation
 		sprite.set_animation(animation)
+	shadow.set_hidden(!shadow_visible)
 
 func _ready():
 	set_fixed_process(true)

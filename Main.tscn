@@ -272,7 +272,7 @@ editor/display_folded = true
 
 [node name="Bat" parent="Enemies" instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 300.863, 496.734 )
+transform/pos = Vector2( 622.531, 360.455 )
 
 [node name="Projectiles" type="Node2D" parent="."]
 
