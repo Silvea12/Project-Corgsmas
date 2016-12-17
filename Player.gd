@@ -6,6 +6,7 @@ const JUMP_VELOCITY = 450
 const KNOCKBACK_FORCE = 300
 
 signal hurt
+signal stick_think
 
 onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
@@ -34,6 +35,10 @@ func _hurt(hit_pos):
 	if health == 0:
 		print("DED")
 		# TODO: Respawn
+
+func _stick_think():
+	thought_shown_time = 5
+	thought_bubble.set_hidden(false)
 
 func _fixed_process(delta):
 	if Input.is_action_pressed("right"):
@@ -99,10 +104,6 @@ func _fixed_process(delta):
 	if did_move:
 		rotate_canon()
 
-func show_thought():
-	thought_shown_time = 5
-	thought_bubble.set_hidden(false)
-
 func _process(delta):
 	thought_shown_time -= delta
 	if thought_shown_time >= 0:
@@ -111,7 +112,6 @@ func _process(delta):
 		thought_bubble.set_hidden(true)
 	
 	if is_flipping:
-		show_thought()
 		set_animation("flip")
 		flip_angle += PI*3.3*delta
 		if flip_angle >= PI*2:
@@ -201,6 +201,7 @@ func set_animation(animation):
 
 func _ready():
 	connect("hurt", self, "_hurt")
+	connect("stick_think", self, "_stick_think")
 	set_fixed_process(true)
 	set_process_input(true)
 	set_process(true)
