@@ -48,7 +48,7 @@ points = Vector2Array( 908.398, 219.88, 949.189, 234.233, 624.753, 207.304, 683.
 custom_solver_bias = 0.0
 points = Vector2Array( 870.542, 197.55, 908.398, 219.88, 739.845, 173.654, 780.81, 172.191, 830.065, 179.019 )
 
-[node name="Level2" type="Sprite"]
+[node name="Level2" type="Sprite" groups=[ "LevelSprite" ]]
 
 texture = ExtResource( 1 )
 centered = false

@@ -34,7 +34,7 @@ extents = Vector2( 1092.96, 18.6087 )
 custom_solver_bias = 0.0
 extents = Vector2( 30.7771, 0.810303 )
 
-[node name="Level1" type="Sprite"]
+[node name="Level1" type="Sprite" groups=[ "LevelSprite" ]]
 
 transform/pos = Vector2( 0, 1.50734 )
 texture = ExtResource( 1 )

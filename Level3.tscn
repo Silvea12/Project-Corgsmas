@@ -7,12 +7,12 @@
 custom_solver_bias = 0.0
 extents = Vector2( 1040, 10 )
 
-[node name="Level3" type="Sprite"]
+[node name="Level3" type="Sprite" groups=[ "LevelSprite" ]]
 
 texture = ExtResource( 1 )
 centered = false
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=[ "ground" ]]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
