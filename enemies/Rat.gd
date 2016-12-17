@@ -6,6 +6,7 @@ const GRAVITY = 1500
 const MOVE_SPEED = 200
 
 onready var player = get_tree().get_nodes_in_group("player")[0]
+onready var sprite = get_node("AnimatedSprite")
 
 var moving = true
 var slow_moving = false
@@ -22,11 +23,20 @@ func _fixed_process(delta):
 	
 	if move_switch_time > 0.5:
 		moving = randi() % 4 > 0
+		if !moving:
+			sprite.stop()
+		else:
+			sprite.play()
 		slow_moving = randi() % 3 == 0
+		if slow_moving:
+			sprite.get_sprite_frames().set_animation_speed("default", 8)
+		else:
+			sprite.get_sprite_frames().set_animation_speed("default", 12)
 		move_switch_time = 0
 	
 	if moving:
 		velocity.x = sign(player.get_global_pos().x - get_global_pos().x)*MOVE_SPEED
+		sprite.set_flip_h(velocity.x > 0)
 		if slow_moving:
 			velocity.x /= 1.5
 	else:
