@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 signal hurt
-const DEATH_TIME = 1.3
-var death_timer = 0
+const MAX_SPEED = 500
+const ACCELERATION = 20
 onready var player = get_tree().get_nodes_in_group("player")[0]
 
 var velocity = Vector2()
@@ -15,9 +15,19 @@ func _hurt():
 func _fixed_process(delta):
 	var angle = get_angle_to(player.get_global_pos())
 	var new_dir = Vector2(0,1).rotated(angle)
-	velocity = new_dir
+	velocity += new_dir*ACCELERATION
+	if velocity.length() > MAX_SPEED:
+		velocity = velocity.normalized() * MAX_SPEED
 	
-	move(velocity)
+	var motion = velocity*delta
+	
+	motion = move(motion)
+	
+	if is_colliding():
+		var n = get_collision_normal()
+		motion = n.slide(motion)
+		velocity = n.slide(velocity)
+		move(motion)
 
 func _ready():
 	set_fixed_process(true)

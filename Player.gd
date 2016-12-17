@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-const GRAVITY = 50
-const MOVE_SPEED = 5
-const JUMP_VELOCITY = 15
+const GRAVITY = 2000
+const MOVE_SPEED = 500
+const JUMP_VELOCITY = 700
 
 onready var sprite = get_node("CorgiSprite")
 onready var animations = get_node("AnimationPlayer")
@@ -51,18 +51,15 @@ func _fixed_process(delta):
 	velocity.y += GRAVITY*delta
 	
 	if Input.is_action_pressed("drop_down") and !falling_through:
+		set_layer_mask_bit(1, false)
 		falling_through = true
-		var platforms = get_tree().get_nodes_in_group("platforms")
-		for i in platforms:
-			i.add_collision_exception_with(self)
 	elif !Input.is_action_pressed("drop_down") and falling_through:
+		set_layer_mask_bit(1, true)
 		falling_through = false
-		var platforms = get_tree().get_nodes_in_group("platforms")
-		for i in platforms:
-			i.remove_collision_exception_with(self)
 	
-	var movement = move(velocity)
+	var motion = velocity*delta
 	
+	motion = move(motion)
 	
 	if is_colliding():
 		var n = get_collision_normal()
@@ -70,9 +67,9 @@ func _fixed_process(delta):
 		if grounded:
 			air_jumps = 0
 			trying_jump = false
-		movement = n.slide(movement)
+		motion = n.slide(motion)
 		velocity = n.slide(velocity)
-		move(movement)
+		move(motion)
 	else:
 		grounded = false
 
@@ -163,4 +160,4 @@ func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
 	set_process(true)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
