@@ -26,7 +26,7 @@ animations = [ { "frames":[ ExtResource( 2 ) ], "loop":true, "name":"idle", "spe
 [sub_resource type="GDScript" id=3]
 
 resource/name = "CanonFire"
-script/source = "extends Sprite\n\nvar present = preload(\"res://PresentProjectile.tscn\")\nonready var fire_pos = get_node(\"FirePos\")\n\nsignal fire\n\nfunc _fire_weapon():\n\tvar p = present.instance()\n\tp.set_global_pos(fire_pos.get_global_pos())\n\tvar rot = get_rot()\n\tif !is_flipped_h():\n\t\trot -= PI\n\tp.set_linear_velocity(Vector2(1,0).rotated(rot)*600)\n\tget_tree().get_root().add_child(p)\n\nfunc _ready():\n\tconnect(\"fire\", self, \"_fire_weapon\")"
+script/source = "extends Sprite\n\nvar present = preload(\"res://PresentProjectile.tscn\")\nonready var fire_pos = get_node(\"FirePos\")\nonready var projectile_group = get_node(\"/root/Main/Projectiles\")\n\nsignal fire\n\nfunc _fire_weapon():\n\tvar p = present.instance()\n\tp.set_global_pos(fire_pos.get_global_pos())\n\tvar rot = get_rot()\n\tif !is_flipped_h():\n\t\trot -= PI\n\tp.set_linear_velocity(Vector2(1,0).rotated(rot)*600)\n\tprojectile_group.add_child(p)\n\nfunc _ready():\n\tconnect(\"fire\", self, \"_fire_weapon\")"
 
 [node name="Player" type="KinematicBody2D" groups=[ "player" ]]
 
@@ -61,7 +61,6 @@ transform/pos = Vector2( -12.5, -21 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-visibility/visible = false
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

@@ -69,7 +69,8 @@ func _fixed_process(delta):
 			trying_jump = false
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
-		move(motion)
+		if motion.length_squared() > 0.01:
+			move(motion)
 	else:
 		grounded = false
 

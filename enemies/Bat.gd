@@ -27,7 +27,8 @@ func _fixed_process(delta):
 		var n = get_collision_normal()
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
-		move(motion)
+		if motion.length_squared() > 0.01:
+			move(motion)
 
 func _ready():
 	set_fixed_process(true)
