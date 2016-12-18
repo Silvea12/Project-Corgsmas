@@ -35,6 +35,7 @@ script/script = SubResource( 2 )
 transform/pos = Vector2( 2, 0.5 )
 frames = SubResource( 3 )
 animation = "default"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

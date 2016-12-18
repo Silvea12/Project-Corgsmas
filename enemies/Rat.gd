@@ -13,14 +13,14 @@ var slow_moving = false
 var move_switch_time = 0
 var velocity = Vector2()
 
-func _hurt():
+func _hurt(hit_pos):
 	# Enable when we have death anim
 	#get_node("CollisionShape2D").queue_free()
 	queue_free()
 
 func _fixed_process(delta):
 	var distance = player.get_global_pos().distance_to(get_global_pos())
-	if distance > 250:
+	if distance > 1000:
 		return
 	
 	move_switch_time += delta

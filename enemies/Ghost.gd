@@ -20,12 +20,10 @@ var attack_anim = false
 var attack_timer = 0
 var fired = false
 
-func _hurt():
+func _hurt(hit_pos):
 	health -= 1
 	if health == 0:
 		queue_free()
-	# Enable when we have death anim
-	#get_node("CollisionShape2D").queue_free()
 
 func _fixed_process(delta):
 	attack_timer += delta
@@ -92,7 +90,6 @@ func _fixed_process(delta):
 	
 	if is_colliding():
 		var n = get_collision_normal()
-		#get_collider().emit_signal("hurt", get_collision_pos())
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
 		if motion.length_squared() > 0.01:

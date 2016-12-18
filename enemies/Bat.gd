@@ -14,7 +14,7 @@ var spin_direction = false
 var swooping = false
 var time_swoop = 0
 
-func _hurt():
+func _hurt(hit_pos):
 	# Enable when we have death anim
 	#get_node("CollisionShape2D").queue_free()
 	queue_free()

@@ -47,7 +47,7 @@ func _stick_think():
 	thought_bubble.set_hidden(false)
 
 func _fixed_process(delta):
-	if health == 0:
+	if health <= 0:
 		death_anim_timer -= delta
 		if death_anim_timer <= 0:
 			set_global_pos(get_node("/root/Main/Background").get_child(0).get_node("SpawnPoint").get_global_pos())

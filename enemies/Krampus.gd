@@ -27,7 +27,7 @@ var curr_anim = ACTION_WALK
 var health = 20
 var target_platform
 
-func _hurt():
+func _hurt(hit_pos):
 	health -= 1
 	if health == 0:
 		get_node("/root/CreditsRoller").roll_credits()
@@ -87,7 +87,6 @@ func _fixed_process(delta):
 		var n = get_collision_normal()
 		if get_collider().is_in_group("edge"):
 			sprite.set_flip_h(!facing_right)
-		#get_collider().emit_signal("hurt", get_collision_pos())
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
 		if motion.length_squared() > 0.01:

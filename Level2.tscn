@@ -176,6 +176,6 @@ transform/pos = Vector2( 739.896, 135.245 )
 
 [node name="Rat 2" parent="." instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 433.948, 216.47 )
+transform/pos = Vector2( 435.65, 236.435 )
 
 

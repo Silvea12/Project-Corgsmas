@@ -12,7 +12,7 @@ extents = Vector2( 10, 12 )
 [sub_resource type="GDScript" id=2]
 
 resource/name = "PresentProjectile"
-script/source = "extends RigidBody2D\n\nvar air_explosion = preload(\"res://explosions/AirExplosion.tscn\")\nvar ground_explosion = preload(\"res://explosions/GroundExplosion.tscn\")\nvar time_alive = 0\n\nfunc _process(delta):\n\ttime_alive += delta\n\tif time_alive > 10:\n\t\tqueue_free()\n\nfunc _body_enter(body):\n\tvar explosion\n\tvar hit_ground = body.is_in_group(\"ground\")\n\tif hit_ground:\n\t\texplosion = ground_explosion.instance()\n\t\texplosion.set_global_pos(get_global_pos() + Vector2(0, 8))\n\telse:\n\t\texplosion = air_explosion.instance()\n\t\texplosion.set_global_pos(get_global_pos())\n\t\t\n\tget_parent().add_child(explosion)\n\tbody.emit_signal(\"hurt\")\n\tqueue_free()\n\nfunc _ready():\n\tadd_collision_exception_with(get_tree().get_nodes_in_group(\"player\")[0])\n\tconnect(\"body_enter\", self, \"_body_enter\")\n\tset_process(true)"
+script/source = "extends RigidBody2D\n\nvar air_explosion = preload(\"res://explosions/AirExplosion.tscn\")\nvar ground_explosion = preload(\"res://explosions/GroundExplosion.tscn\")\nvar time_alive = 0\n\nfunc _process(delta):\n\ttime_alive += delta\n\tif time_alive > 10:\n\t\tqueue_free()\n\nfunc _body_enter(body):\n\tvar explosion\n\tvar hit_ground = body.is_in_group(\"ground\")\n\tif hit_ground:\n\t\texplosion = ground_explosion.instance()\n\t\texplosion.set_global_pos(get_global_pos() + Vector2(0, 8))\n\telse:\n\t\texplosion = air_explosion.instance()\n\t\texplosion.set_global_pos(get_global_pos())\n\t\t\n\tget_parent().add_child(explosion)\n\tbody.emit_signal(\"hurt\", get_global_pos())\n\tqueue_free()\n\nfunc _ready():\n\tadd_collision_exception_with(get_tree().get_nodes_in_group(\"player\")[0])\n\tconnect(\"body_enter\", self, \"_body_enter\")\n\tset_process(true)"
 
 [sub_resource type="SpriteFrames" id=3]
 
@@ -48,6 +48,7 @@ script/script = SubResource( 2 )
 transform/scale = Vector2( 1.2, 1.2 )
 frames = SubResource( 3 )
 animation = "default"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
