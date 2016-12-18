@@ -4,7 +4,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends Sprite\n\nfunc _ready():\n\tonready var player = get_tree().get_nodes_in_group(\"player\")[0].set_zoom(Vector2(0.6,0.6))"
+script/source = "extends Sprite\n\nfunc _ready():\n\tget_tree().get_nodes_in_group(\"player\")[0].set_zoom(Vector2(0.6,0.6))"
 
 [sub_resource type="RectangleShape2D" id=2]
 
