@@ -22,6 +22,7 @@ var falling_through = false
 var trying_jump = false
 var air_jumps = 0
 var is_flipping = false
+var hurt_cooldown = 0
 
 var health = 5
 
@@ -30,17 +31,22 @@ var old_anim = ""
 var thought_shown_time = 0
 
 func _hurt(hit_pos):
-	knockback = Vector2(0,-1).rotated(get_angle_to(hit_pos))*KNOCKBACK_FORCE
-	health -= 1
-	if health == 0:
-		print("DED")
-		# TODO: Respawn
+	if hurt_cooldown <= 0:
+		hurt_cooldown = 0.5
+		knockback = Vector2(0,-1).rotated(get_angle_to(hit_pos))*KNOCKBACK_FORCE
+		health -= 1
+		if health == 0:
+			print("DED")
+			# TODO: Respawn
 
 func _stick_think():
 	thought_shown_time = 5
 	thought_bubble.set_hidden(false)
 
 func _fixed_process(delta):
+	hurt_cooldown -= delta
+	if hurt_cooldown < 0:
+		hurt_cooldown = 0
 	if Input.is_action_pressed("right"):
 		velocity.x = MOVE_SPEED
 		flip_corgi(true)

@@ -3,7 +3,7 @@ extends AnimatedSprite
 var has_played = false
 
 func _process(delta):
-	if get_frame() == 4:
+	if get_frame() == 3:
 		queue_free()
 
 func _ready():

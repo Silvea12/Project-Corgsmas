@@ -107,7 +107,7 @@ func fire():
 	p.set_global_pos(fire_pos.get_global_pos())
 	p.add_collision_exception_with(self)
 	p.rotate(get_angle_to(player.get_global_pos()) + PI/2)
-	get_tree().get_root().add_child(p)
+	get_parent().add_child(p)
 
 func _ready():
 	set_process(true)
