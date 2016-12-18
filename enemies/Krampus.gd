@@ -58,7 +58,7 @@ func apply_animation(anim):
 func _fixed_process(delta):
 	anim_timer += delta
 	
-	var player_distance = (get_global_pos() - player.get_global_pos()).length()
+	var player_distance = player.get_global_pos().distance_to(get_global_pos())
 	
 	var facing_right = sprite.is_flipped_h()
 	
@@ -95,7 +95,7 @@ func _fixed_process(delta):
 
 func _process(delta):
 	if curr_anim != ACTION_WALK:
-		var player_distance = abs((get_global_pos() - player.get_global_pos()).x)
+		var player_distance = player.get_global_pos().distance_to(get_global_pos())
 		
 		var curr_frame = sprite.get_frame()
 		if curr_frame == anim_length - 1:

@@ -41,7 +41,7 @@ func _fixed_process(delta):
 		else:
 			speed_multiplier = 1.5
 	if !swooping:
-		if (player.get_global_pos() - get_global_pos()).length() < APPROACH_DIST:
+		if player.get_global_pos().distance_to(get_global_pos()) < APPROACH_DIST:
 			if cos(angle) <= 0.2:
 				spin_direction = sin(angle) <= 0.1
 			
