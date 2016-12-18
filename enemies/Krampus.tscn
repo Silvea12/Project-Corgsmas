@@ -1,0 +1,53 @@
+[gd_scene load_steps=19 format=1]
+
+[ext_resource path="res://enemies/Krampus.gd" type="Script" id=1]
+[ext_resource path="res://sprites/krampus animations/krampus_walk  8 FPS/walk_1.tex" type="Texture" id=2]
+[ext_resource path="res://sprites/krampus animations/krampus_walk  8 FPS/walk_2.tex" type="Texture" id=3]
+[ext_resource path="res://sprites/krampus animations/krampus_walk  8 FPS/walk_3.tex" type="Texture" id=4]
+[ext_resource path="res://sprites/krampus animations/krampus_walk  8 FPS/walk_4.tex" type="Texture" id=5]
+[ext_resource path="res://sprites/krampus animations/krampus_attack 8 FPS/attack_1.tex" type="Texture" id=6]
+[ext_resource path="res://sprites/krampus animations/krampus_attack 8 FPS/attack_2.tex" type="Texture" id=7]
+[ext_resource path="res://sprites/krampus animations/krampus_attack 8 FPS/attack_3.tex" type="Texture" id=8]
+[ext_resource path="res://sprites/krampus animations/krampus_jump_stomp 8 FPS/jump_stomp_1.tex" type="Texture" id=9]
+[ext_resource path="res://sprites/krampus animations/krampus_jump_stomp 8 FPS/jump_stomp_2.tex" type="Texture" id=10]
+[ext_resource path="res://sprites/krampus animations/krampus_jump_stomp 8 FPS/jump_stomp_3.tex" type="Texture" id=11]
+[ext_resource path="res://sprites/krampus animations/krampus_jump_stomp 8 FPS/jump_stomp_4.tex" type="Texture" id=12]
+[ext_resource path="res://sprites/krampus animations/krampus_small_stomp  8 FPS/small_stomp_1.tex" type="Texture" id=13]
+[ext_resource path="res://sprites/krampus animations/krampus_small_stomp  8 FPS/small_stomp_2.tex" type="Texture" id=14]
+[ext_resource path="res://sprites/krampus animations/krampus_small_stomp  8 FPS/small_stomp_3.tex" type="Texture" id=15]
+[ext_resource path="res://sprites/krampus animations/krampus_small_stomp  8 FPS/small_stomp_4.tex" type="Texture" id=16]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 13.5, 31 )
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ], "loop":true, "name":"walk", "speed":8.0 }, { "frames":[ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 8 ) ], "loop":false, "name":"attack", "speed":8.0 }, { "frames":[ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 12 ) ], "loop":false, "name":"jump_stomp", "speed":8.0 }, { "frames":[ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 16 ) ], "loop":false, "name":"small_stomp", "speed":8.0 } ]
+
+[node name="Krampus" type="KinematicBody2D" groups=[ "boss" ]]
+
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 8
+collision/mask = 8
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+
+frames = SubResource( 1 )
+animation = "walk"
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+
