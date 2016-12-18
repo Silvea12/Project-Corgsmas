@@ -13,10 +13,9 @@ var slow_moving = false
 var move_switch_time = 0
 var velocity = Vector2()
 
-func _hurt(hit_pos):
-	# Enable when we have death anim
-	#get_node("CollisionShape2D").queue_free()
-	queue_free()
+func _hurt(hit_pos, is_enemy):
+	if !is_enemy:
+		queue_free()
 
 func _fixed_process(delta):
 	var distance = player.get_global_pos().distance_to(get_global_pos())
@@ -54,7 +53,7 @@ func _fixed_process(delta):
 	
 	if is_colliding():
 		var n = get_collision_normal()
-		get_collider().emit_signal("hurt", get_collision_pos())
+		get_collider().emit_signal("hurt", get_collision_pos(), true)
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
 		if motion.length_squared() > 0.01:

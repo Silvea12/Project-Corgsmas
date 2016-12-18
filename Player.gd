@@ -31,8 +31,8 @@ var old_anim = ""
 var thought_shown_time = 0
 var death_anim_timer = 0
 
-func _hurt(hit_pos):
-	if invincible:
+func _hurt(hit_pos, is_enemy):
+	if invincible or !is_enemy:
 		return
 	if hurt_cooldown <= 0:
 		hurt_cooldown = 0.5

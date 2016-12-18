@@ -28,14 +28,15 @@ var curr_anim = ACTION_WALK
 var health = 20
 var target_platform
 
-func _hurt(hit_pos):
-	health -= 1
-	health_bar.set_val(health)
-	if health == 0:
-		sprite.set_animation("small_stomp")
-		sprite.stop()
-		sprite.set_frame(1)
-		get_parent().emit_signal("end_game")
+func _hurt(hit_pos, is_enemy):
+	if !is_enemy:
+		health -= 1
+		health_bar.set_val(health)
+		if health == 0:
+			sprite.set_animation("small_stomp")
+			sprite.stop()
+			sprite.set_frame(1)
+			get_parent().emit_signal("end_game")
 
 func _player_on_platform(platform):
 	target_platform = platform
@@ -113,7 +114,7 @@ func _process(delta):
 				knockback_dir.x -= 1
 			else:
 				knockback_dir.x += 1
-			player.emit_signal("hurt", knockback_dir)
+			player.emit_signal("hurt", knockback_dir, true)
 		elif curr_anim == ACTION_ATTACK and player_distance >= STOMP_DISTANCE and curr_frame == 2 and !caused_damage:
 			caused_damage = true
 			var p = projectile.instance()

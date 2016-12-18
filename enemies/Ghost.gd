@@ -20,10 +20,11 @@ var attack_anim = false
 var attack_timer = 0
 var fired = false
 
-func _hurt(hit_pos):
-	health -= 1
-	if health == 0:
-		queue_free()
+func _hurt(hit_pos, is_enemy):
+	if !is_enemy:
+		health -= 1
+		if health == 0:
+			queue_free()
 
 func _fixed_process(delta):
 	attack_timer += delta
