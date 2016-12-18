@@ -9,7 +9,6 @@ signal hurt
 signal stick_think
 
 onready var sprite = get_node("CorgiSprite")
-onready var animations = get_node("AnimationPlayer")
 onready var canon = get_node("CanonSprite")
 onready var crosshair = get_node("CanvasLayer/Crosshair")
 onready var shadow = get_node("CorgiSprite/ShadowSprite")
