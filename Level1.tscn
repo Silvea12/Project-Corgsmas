@@ -294,11 +294,12 @@ transform/pos = Vector2( 72.9143, 220.388 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 1030.7, 199.446 )
+transform/pos = Vector2( 1056.24, 119.1 )
+transform/scale = Vector2( 0.243263, 3.78032 )
 bg_level = ExtResource( 5 )
 
-[node name="Stick" parent="WarpZone" instance=ExtResource( 6 )]
+[node name="Stick" parent="." instance=ExtResource( 6 )]
 
-transform/pos = Vector2( -246.813, 26.0839 )
+transform/pos = Vector2( 783.887, 225.53 )
 
 

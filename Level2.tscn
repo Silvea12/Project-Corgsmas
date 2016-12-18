@@ -110,7 +110,8 @@ transform/pos = Vector2( 969.232, 230.003 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 1202.13, 200.178 )
+transform/pos = Vector2( 1236.6, 119.19 )
+transform/scale = Vector2( 0.278368, 3.71799 )
 bg_level = ExtResource( 4 )
 
 [node name="SpawnPoint" type="Position2D" parent="."]
