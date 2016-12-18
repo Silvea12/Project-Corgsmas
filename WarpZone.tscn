@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30, 30 )
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Area2D\n\nexport(PackedScene) var bg_level\nexport(PackedScene) var fg_level\n\nonready var background = get_node(\"/root/Main/Background\")\nonready var foreground = get_node(\"/root/Main/Foreground\")\nonready var player = get_tree().get_nodes_in_group(\"player\")[0]\n\nvar warping = false\n\nfunc _body_enter(body):\n\tif body.is_in_group(\"player\") and !warping:\n\t\twarping = true\n\t\tfor elem in background.get_children():\n\t\t\telem.queue_free()\n\t\t\n\t\tfor elem in foreground.get_children():\n\t\t\telem.queue_free()\n\t\t\n\t\tif bg_level != null:\n\t\t\tvar new_bg = bg_level.instance()\n\t\t\tbackground.add_child(new_bg)\n\t\t\tplayer.set_global_pos(new_bg.get_node(\"SpawnPoint\").get_global_pos())\n\t\telse:\n\t\t\tprint(\"BG IS NULL\")\n\t\t\n\t\tif fg_level != null:\n\t\t\tvar new_fg = fg_level.instance()\n\t\t\tforeground.add_child(new_fg)\n\t\telse:\n\t\t\tprint(\"BG IS NULL\")\n\nfunc _ready():\n\tconnect(\"body_enter\", self, \"_body_enter\")"
+
+[node name="WarpZone" type="Area2D"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = SubResource( 2 )
+bg_level = null
+fg_level = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+

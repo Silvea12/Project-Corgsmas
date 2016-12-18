@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://sprites/lvl2-assets/bg.tex" type="Texture" id=1]
 [ext_resource path="res://Stick.tscn" type="PackedScene" id=2]
+[ext_resource path="res://WarpZone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Level3.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -100,5 +102,14 @@ trigger = false
 [node name="Stick" parent="Floor" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 969.232, 230.003 )
+
+[node name="WarpZone" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 1202.13, 200.178 )
+bg_level = ExtResource( 4 )
+
+[node name="SpawnPoint" type="Position2D" parent="."]
+
+transform/pos = Vector2( 30.8739, 221.998 )
 
 

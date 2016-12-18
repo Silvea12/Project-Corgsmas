@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://sprites/lvl3-assets/bg.tex" type="Texture" id=1]
+[ext_resource path="res://WarpZone.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -58,5 +59,14 @@ transform/pos = Vector2( 1168, 155 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
+
+[node name="WarpZone" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 2013.75, 153.222 )
+transform/scale = Vector2( 0.873372, 2.1793 )
+
+[node name="SpawnPoint" type="Position2D" parent="."]
+
+transform/pos = Vector2( 23.7758, 217.224 )
 
 
