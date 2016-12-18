@@ -106,7 +106,6 @@ extents = Vector2( 48.7816, 5 )
 
 [node name="BossRoom" type="Sprite"]
 
-transform/pos = Vector2( 0, -0.598724 )
 texture = ExtResource( 1 )
 centered = false
 script/script = SubResource( 1 )

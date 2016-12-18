@@ -28,7 +28,7 @@ default_font = ExtResource( 2 )
 [sub_resource type="GDScript" id=3]
 
 resource/name = "Credits"
-script/source = "extends RichTextLabel\n\nfunc end_credits():\n\tget_tree().quit()\n\nfunc _meta_clicked(meta):\n\tOS.shell_open(meta)\n\nfunc _ready():\n\tconnect(\"meta_clicked\", self, \"_meta_clicked\")"
+script/source = "extends RichTextLabel\n\nfunc end_credits():\n\tget_tree().quit()\n\nfunc _meta_clicked(meta):\n\tOS.shell_open(meta)\n\nfunc _ready():\n\tconnect(\"meta_clicked\", self, \"_meta_clicked\")\n\tInput.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)"
 
 [sub_resource type="Animation" id=4]
 

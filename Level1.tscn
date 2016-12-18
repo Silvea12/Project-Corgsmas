@@ -50,7 +50,6 @@ extents = Vector2( 10, 255.23 )
 
 [node name="Level1" type="Sprite" groups=[ "LevelSprite" ]]
 
-transform/pos = Vector2( 0, 1.50734 )
 texture = ExtResource( 1 )
 centered = false
 
