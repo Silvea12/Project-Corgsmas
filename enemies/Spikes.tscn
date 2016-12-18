@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://sprites/krampus animations/spike_1.tex" type="Texture" id=1]
+[ext_resource path="res://sprites/krampus animations/spike_2.tex" type="Texture" id=2]
+[ext_resource path="res://sprites/krampus animations/spike_3.tex" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 65, 45 )
+
+[sub_resource type="GDScript" id=2]
+
+resource/name = "Spikes"
+script/source = "extends Area2D\n\nconst GRAVITY = 1000\n\nonready var spike_sprites = [preload(\"res://sprites/krampus animations/spike_1.tex\"), preload(\"res://sprites/krampus animations/spike_2.tex\"), preload(\"res://sprites/krampus animations/spike_3.tex\")]\nonready var air_expolosion = preload(\"res://explosions/AirExplosion.tscn\")\nonready var player = get_tree().get_nodes_in_group(\"player\")[0]\n\nvar velocity = Vector2()\nvar has_hurt = false\n\nvar stop_height = 0\nvar moving = true\n\nfunc _fixed_process(delta):\n\tif moving:\n\t\tvar pos = get_pos()\n\t\tpos.y += delta*GRAVITY\n\t\tif pos.y >= stop_height:\n\t\t\tmoving = false\n\t\t\tpos.y = stop_height\n\t\tset_pos(pos)\n\t\tif !has_hurt and overlaps_body(player):\n\t\t\thas_hurt = true\n\t\t\tplayer.emit_signal(\"hurt\", get_global_pos())\n\telse:\n\t\tfor elem in get_children():\n\t\t\tif elem.is_type(\"Sprite\"):\n\t\t\t\tvar expl = air_expolosion.instance()\n\t\t\t\texpl.set_pos(get_pos() + elem.get_pos())\n\t\t\t\tget_parent().add_child(expl)\n\t\t\t\tqueue_free()\n\nfunc _ready():\n\trandomize()\n\tfor elem in get_children():\n\t\tif elem.is_type(\"Sprite\"):\n\t\t\telem.set_texture(spike_sprites[randi()%spike_sprites.size()])\n\t\n\tset_fixed_process(true)"
+
+[node name="Spikes" type="Area2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 12.5, 45 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = SubResource( 2 )
+
+[node name="spike_1" type="Sprite" parent="."]
+
+transform/pos = Vector2( -50, 0 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="spike_2" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+centered = false
+
+[node name="spike_3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 50, 0 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="spike_4" type="Sprite" parent="."]
+
+transform/pos = Vector2( 25, 0 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="spike_5" type="Sprite" parent="."]
+
+transform/pos = Vector2( -25, 0 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 12.5, 45 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+

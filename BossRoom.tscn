@@ -118,6 +118,8 @@ transform/pos = Vector2( 59.8304, 126.03 )
 
 [node name="Boundaries" type="Node2D" parent="."]
 
+editor/display_folded = true
+
 [node name="Floor" type="StaticBody2D" parent="Boundaries" groups=[ "ground" ]]
 
 editor/display_folded = true
@@ -334,6 +336,14 @@ linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 2 )
 
+[node name="SpikeSpawn" type="Position2D" parent="Platforms/LowerPlatformArea"]
+
+transform/pos = Vector2( 242.114, 10.6599 )
+
+[node name="SpikeStop" type="Position2D" parent="Platforms/LowerPlatformArea/SpikeSpawn"]
+
+transform/pos = Vector2( 0, 305.58 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LowerPlatformArea"]
 
 transform/pos = Vector2( 255.023, 345 )
@@ -352,6 +362,14 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 2 )
+
+[node name="SpikeSpawn" type="Position2D" parent="Platforms/UpperPlatformArea"]
+
+transform/pos = Vector2( 465.296, 11.5613 )
+
+[node name="SpikeStop" type="Position2D" parent="Platforms/UpperPlatformArea/SpikeSpawn"]
+
+transform/pos = Vector2( 0, 241.068 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/UpperPlatformArea"]
 

@@ -20,7 +20,7 @@ func _fixed_process(delta):
 	
 	if timer >= 0.5 and !stomped:
 		stomped = true
-		boss.emit_signal("player_on_platform")
+		boss.emit_signal("player_on_platform", get_child(0))
 
 func _ready():
 	connect("body_enter", self, "_body_enter")

@@ -3,9 +3,10 @@ extends KinematicBody2D
 signal hurt
 signal player_on_platform
 
+onready var projectile = preload("res://enemies/KrampusProjectile.tscn")
+onready var spikes = preload("res://enemies/Spikes.tscn")
 onready var sprite = get_node("AnimatedSprite")
 onready var player = get_tree().get_nodes_in_group("player")[0]
-onready var projectile = preload("res://enemies/KrampusProjectile.tscn")
 onready var projectile_pos = get_node("ProjectilePos")
 
 var velocity = Vector2()
@@ -24,14 +25,15 @@ var anim_length = 3
 var caused_damage = false
 var curr_anim = ACTION_WALK
 var health = 20
-
+var target_platform
 
 func _hurt():
 	health -= 1
 	if health == 0:
 		queue_free()
 
-func _player_on_platform():
+func _player_on_platform(platform):
+	target_platform = platform
 	apply_animation(ACTION_JUMP_STOMP)
 
 func apply_animation(anim):
@@ -93,7 +95,7 @@ func _fixed_process(delta):
 
 func _process(delta):
 	if curr_anim != ACTION_WALK:
-		var player_distance = (get_global_pos() - player.get_global_pos()).length()
+		var player_distance = abs((get_global_pos() - player.get_global_pos()).x)
 		
 		var curr_frame = sprite.get_frame()
 		if curr_frame == anim_length - 1:
@@ -122,6 +124,11 @@ func _process(delta):
 			p.set_rot(new_rot + PI/2)
 			p.set_global_pos(spawn_pos)
 			get_parent().add_child(p)
+		elif curr_anim == ACTION_JUMP_STOMP and curr_frame == 3 and !caused_damage:
+			caused_damage = true
+			var s = spikes.instance()
+			s.set("stop_height", target_platform.get_child(0).get_pos().y)
+			target_platform.add_child(s)
 
 func _ready():
 	connect("hurt", self, "_hurt")
