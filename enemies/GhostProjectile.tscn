@@ -11,7 +11,8 @@ extents = Vector2( 5, 4.5 )
 
 [sub_resource type="GDScript" id=3]
 
-script/source = "extends KinematicBody2D\n\nfunc _fixed_process(delta):\n\tif is_colliding():\n\t\tget_collider().emit_signal(\"hurt\")\n\t\tqueue_free()\n\telse:\n\t\tmove(Vector2(-80,0).rotated(get_rot())*delta)\n\nfunc _ready():\n\tset_fixed_process(true)"
+resource/name = "GhostProjectile"
+script/source = "extends KinematicBody2D\n\nvar time_alive = 0\n\nfunc _process(delta):\n\ttime_alive += delta\n\tif time_alive > 10:\n\t\tqueue_free()\n\nfunc _fixed_process(delta):\n\tif is_colliding():\n\t\tget_collider().emit_signal(\"hurt\")\n\t\tqueue_free()\n\telse:\n\t\tmove(Vector2(-120,0).rotated(get_rot())*delta)\n\nfunc _ready():\n\tset_fixed_process(true)\n\tset_process(true)"
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -33,7 +34,7 @@ script/script = SubResource( 3 )
 transform/pos = Vector2( 3, 1.5 )
 frames = SubResource( 1 )
 animation = "default"
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

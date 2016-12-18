@@ -42,16 +42,13 @@ centered = false
 
 [node name="Couch" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 389.139, 192.048 )
 transform/scale = Vector2( 0.808469, 0.808469 )
 texture = ExtResource( 2 )
 
 [node name="Arm Rests" type="Node2D" parent="Couch"]
 
-editor/display_folded = true
-
-[node name="LArm" type="StaticBody2D" parent="Couch/Arm Rests"]
+[node name="LArm" type="StaticBody2D" parent="Couch/Arm Rests" groups=[ "ground" ]]
 
 editor/display_folded = true
 input/pickable = false
@@ -74,7 +71,7 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="RArm" type="StaticBody2D" parent="Couch/Arm Rests"]
+[node name="RArm" type="StaticBody2D" parent="Couch/Arm Rests" groups=[ "ground" ]]
 
 editor/display_folded = true
 input/pickable = false
@@ -97,7 +94,7 @@ shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Seat" type="StaticBody2D" parent="Couch/Arm Rests"]
+[node name="Seat" type="StaticBody2D" parent="Couch/Arm Rests" groups=[ "ground" ]]
 
 editor/display_folded = true
 input/pickable = false
