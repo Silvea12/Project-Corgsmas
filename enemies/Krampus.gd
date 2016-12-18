@@ -30,7 +30,7 @@ var target_platform
 func _hurt():
 	health -= 1
 	if health == 0:
-		queue_free()
+		get_node("/root/CreditsRoller").roll_credits()
 
 func _player_on_platform(platform):
 	target_platform = platform

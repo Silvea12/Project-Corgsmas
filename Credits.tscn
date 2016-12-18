@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://fonts/Tandysoft.fnt" type="BitmapFont" id=1]
+
+[sub_resource type="Theme" id=1]
+
+default_font = ExtResource( 1 )
+
+[sub_resource type="GDScript" id=2]
+
+resource/name = "CreditsRTL"
+script/source = "extends RichTextLabel\n\nonready var credits_root = get_node(\"/root/Credits\")\n\nfunc _meta_clicked(meta):\n\tOS.shell_open(meta)\n\nfunc _process(delta):\n\tvar p = credits_root.get_pos()\n\tp.y -= delta*10\n\tcredits_root.set_pos(p)\n\nfunc _ready():\n\tconnect(\"meta_clicked\", self, \"_meta_clicked\")\n\tset_process(true)"
+
+[node name="Credits" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1024.0
+margin/bottom = 600.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = SubResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+bbcode/enabled = true
+bbcode/bbcode = "[center]\nCredits:\nAndrew Silver:\n - Twitter: [color=aqua][url=https://twitter.com/Silvea12]@Silvea12[/url][/color] -\n - Github: [color=aqua][url=https://github.com/Silvea12]Silvea12[/url][/color] -\n - Picarto: [color=aqua][url=https://picarto.tv/Pikachu]Pikachu[/url][/color] -\n - Itch: [color=aqua][url=https://silvea12.itch.io/]silvea12.itch.io[/url][/color] -\n[/center]"
+visible_characters = -1
+script/script = SubResource( 2 )
+
+

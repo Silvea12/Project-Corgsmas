@@ -54,6 +54,7 @@ func _fixed_process(delta):
 			health = 5
 			set_layer_mask(3)
 			set_collision_mask(1)
+			velocity = Vector2()
 	
 	hurt_cooldown -= delta
 	if hurt_cooldown < 0:

@@ -28,10 +28,6 @@ func _hurt():
 	#get_node("CollisionShape2D").queue_free()
 
 func _fixed_process(delta):
-	var distance = player.get_global_pos().distance_to(get_global_pos())
-	if distance > 250:
-		return
-	
 	attack_timer += delta
 	
 	var angle = get_angle_to(player.get_global_pos())
@@ -46,7 +42,7 @@ func _fixed_process(delta):
 	sprite.set_flip_h(left_side)
 	
 	if attack_timer >= rand_range(3,5) and !attacking:
-		attacking = false
+		attacking = true
 		attack_timer = 0
 	if attacking:
 		if attack_timer >= 0.3:
@@ -66,6 +62,7 @@ func _fixed_process(delta):
 			angle -= PI/4
 	
 	var slowing = false
+	var distance = player.get_global_pos().distance_to(get_global_pos())
 	
 	if abs(distance - APPROACH_DIST) < DEAD_DIST:
 		slowing = true

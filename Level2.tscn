@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://sprites/lvl2-assets/bg.tex" type="Texture" id=1]
 [ext_resource path="res://Stick.tscn" type="PackedScene" id=2]
 [ext_resource path="res://WarpZone.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Level3.tscn" type="PackedScene" id=4]
+[ext_resource path="res://enemies/Bat.tscn" type="PackedScene" id=5]
+[ext_resource path="res://enemies/Rat.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -159,5 +161,21 @@ transform/pos = Vector2( 1259, 120 )
 shape = SubResource( 10 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Bat" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 849.231, 70.9955 )
+
+[node name="Bat 2" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 578.348, 73.8752 )
+
+[node name="Rat" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 739.896, 135.245 )
+
+[node name="Rat 2" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 433.948, 216.47 )
 
 

@@ -3,7 +3,7 @@ extends KinematicBody2D
 signal hurt
 
 const GRAVITY = 1500
-const MOVE_SPEED = 200
+const MOVE_SPEED = 150
 
 onready var player = get_tree().get_nodes_in_group("player")[0]
 onready var sprite = get_node("AnimatedSprite")
@@ -19,6 +19,10 @@ func _hurt():
 	queue_free()
 
 func _fixed_process(delta):
+	var distance = player.get_global_pos().distance_to(get_global_pos())
+	if distance > 250:
+		return
+	
 	move_switch_time += delta
 	
 	if move_switch_time > 0.5:

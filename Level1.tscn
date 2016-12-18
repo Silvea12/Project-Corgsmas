@@ -33,17 +33,17 @@ extents = Vector2( 1.66049, 10 )
 custom_solver_bias = 0.0
 extents = Vector2( 1092.96, 18.6087 )
 
-[sub_resource type="ConvexPolygonShape2D" id=8]
+[sub_resource type="ConvexPolygonShape2D" id=6]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 405.428, 225.563, 355.775, 211.101, 352.401, 14.9016, 403.982, 49.1281 )
 
-[sub_resource type="ConvexPolygonShape2D" id=9]
+[sub_resource type="ConvexPolygonShape2D" id=7]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 1444.53, 35.6791, 1495.28, 3.09648, 1495.81, 196.456, 1444, 212.48 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 255.23 )
@@ -207,7 +207,7 @@ _update_shape_index = 0
 
 editor/display_folded = true
 input/pickable = false
-shapes/0/shape = SubResource( 8 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -229,7 +229,7 @@ trigger = false
 editor/display_folded = true
 transform/pos = Vector2( 220.849, 13.7672 )
 input/pickable = false
-shapes/0/shape = SubResource( 9 )
+shapes/0/shape = SubResource( 7 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -250,7 +250,7 @@ trigger = false
 
 editor/display_folded = true
 input/pickable = false
-shapes/0/shape = SubResource( 7 )
+shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -10, 250 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -263,7 +263,7 @@ bounce = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LEdge"]
 
 transform/pos = Vector2( -10, 250 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 trigger = false
 _update_shape_index = 0
 
@@ -271,7 +271,7 @@ _update_shape_index = 0
 
 editor/display_folded = true
 input/pickable = false
-shapes/0/shape = SubResource( 7 )
+shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 2171, 250 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -284,7 +284,7 @@ bounce = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/REdge"]
 
 transform/pos = Vector2( 2171, 250 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 trigger = false
 _update_shape_index = 0
 
@@ -296,7 +296,7 @@ texture = ExtResource( 3 )
 
 [node name="SpawnPoint" type="Position2D" parent="."]
 
-transform/pos = Vector2( 47.7043, 192.524 )
+transform/pos = Vector2( 34.7357, 216.84 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 4 )]
 
@@ -308,18 +308,8 @@ bg_level = ExtResource( 5 )
 
 transform/pos = Vector2( 783.887, 225.53 )
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Rat" parent="." instance=ExtResource( 7 )]
 
-[node name="Rat" parent="Enemies" instance=ExtResource( 7 )]
-
-transform/pos = Vector2( 900.763, 218.432 )
-
-[node name="Rat 2" parent="Enemies" instance=ExtResource( 7 )]
-
-transform/pos = Vector2( 901.791, 200.801 )
-
-[node name="Rat 3" parent="Enemies" instance=ExtResource( 7 )]
-
-transform/pos = Vector2( 901.352, 182.505 )
+transform/pos = Vector2( 962.081, 215.804 )
 
 
