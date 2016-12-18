@@ -88,11 +88,13 @@ func _fixed_process(delta):
 	
 	if is_colliding():
 		var n = get_collision_normal()
-		sprite.set_rot(n.angle() + PI)
 		grounded = n.dot(Vector2(0, 1)) < -0.6
 		if grounded:
 			air_jumps = 0
 			trying_jump = false
+			sprite.set_rot(n.angle() + PI)
+		else:
+			sprite.set_rot(0)
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
 		if motion.length_squared() > 0.01:
