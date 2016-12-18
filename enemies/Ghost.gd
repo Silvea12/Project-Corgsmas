@@ -40,8 +40,8 @@ func _fixed_process(delta):
 	
 	sprite.set_flip_h(left_side)
 	
-	if attack_timer >= 4 and !attacking:
-		attacking = true
+	if attack_timer >= rand_range(3,5) and !attacking:
+		attacking = false
 		attack_timer = 0
 	if attacking:
 		if attack_timer >= 0.3:
@@ -52,11 +52,13 @@ func _fixed_process(delta):
 			sprite.stop()
 		return
 	
-	if cos(angle) < 0.3:
+	var is_under_player = cos(angle) < 0.3
+	
+	if is_under_player:
 		if left_side:
-			angle += PI/2
+			angle += PI/4
 		else:
-			angle -= PI/2
+			angle -= PI/4
 	
 	var distance = (player.get_global_pos() - get_global_pos()).length()
 	var slowing = false
@@ -64,7 +66,13 @@ func _fixed_process(delta):
 	if abs(distance - APPROACH_DIST) < DEAD_DIST:
 		slowing = true
 	elif distance < APPROACH_DIST:
-		angle += PI
+		if is_under_player:
+			if left_side:
+				angle += PI/2
+			else:
+				angle -= PI/2
+		else:
+			angle += PI
 	
 	var new_dir = Vector2(0,1).rotated(angle)
 	if slowing:
@@ -110,6 +118,7 @@ func fire():
 	get_parent().add_child(p)
 
 func _ready():
+	randomize()
 	set_process(true)
 	set_fixed_process(true)
 	connect("hurt", self, "_hurt")

@@ -28,6 +28,7 @@ var health = 5
 var flip_angle = 0
 var old_anim = ""
 var thought_shown_time = 0
+var death_anim_timer = 0
 
 func _hurt(hit_pos):
 	if hurt_cooldown <= 0:
@@ -35,7 +36,10 @@ func _hurt(hit_pos):
 		knockback = Vector2(0,-1).rotated(get_angle_to(hit_pos))*KNOCKBACK_FORCE
 		health -= 1
 		if health == 0:
-			print("DED")
+			death_anim_timer = 1.5
+			velocity.y = -JUMP_VELOCITY
+			set_layer_mask(0)
+			set_collision_mask(0)
 			# TODO: Respawn
 
 func _stick_think():
@@ -43,6 +47,14 @@ func _stick_think():
 	thought_bubble.set_hidden(false)
 
 func _fixed_process(delta):
+	if health == 0:
+		death_anim_timer -= delta
+		if death_anim_timer <= 0:
+			set_global_pos(get_node("/root/Main/Background").get_child(0).get_node("SpawnPoint").get_global_pos())
+			health = 5
+			set_layer_mask(3)
+			set_collision_mask(1)
+	
 	hurt_cooldown -= delta
 	if hurt_cooldown < 0:
 		hurt_cooldown = 0

@@ -1,16 +1,16 @@
 [gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://enemies/Ghost.gd" type="Script" id=1]
-[ext_resource path="res://sprites/ghost_attack 8 FPS/ghost_attack_0.tex" type="Texture" id=2]
-[ext_resource path="res://sprites/ghost_attack 8 FPS/ghost_attack_1.tex" type="Texture" id=3]
-[ext_resource path="res://sprites/ghost_attack 8 FPS/ghost_attack_2.tex" type="Texture" id=4]
-[ext_resource path="res://sprites/ghost_attack 8 FPS/ghost_attack_3.tex" type="Texture" id=5]
-[ext_resource path="res://sprites/ghost frames/ghost_anim_0.tex" type="Texture" id=6]
-[ext_resource path="res://sprites/ghost frames/ghost_anim_1.tex" type="Texture" id=7]
-[ext_resource path="res://sprites/ghost frames/ghost_anim_2.tex" type="Texture" id=8]
-[ext_resource path="res://sprites/ghost frames/ghost_anim_3.tex" type="Texture" id=9]
-[ext_resource path="res://sprites/ghost frames/ghost_anim_4.tex" type="Texture" id=10]
-[ext_resource path="res://sprites/ghost frames/ghost_anim_5.tex" type="Texture" id=11]
+[ext_resource path="res://sprites/ghost frames/ghost_anim_0.tex" type="Texture" id=2]
+[ext_resource path="res://sprites/ghost frames/ghost_anim_1.tex" type="Texture" id=3]
+[ext_resource path="res://sprites/ghost frames/ghost_anim_2.tex" type="Texture" id=4]
+[ext_resource path="res://sprites/ghost frames/ghost_anim_3.tex" type="Texture" id=5]
+[ext_resource path="res://sprites/ghost frames/ghost_anim_4.tex" type="Texture" id=6]
+[ext_resource path="res://sprites/ghost frames/ghost_anim_5.tex" type="Texture" id=7]
+[ext_resource path="res://sprites/ghost_attack 8 FPS/ghost_attack_0.tex" type="Texture" id=8]
+[ext_resource path="res://sprites/ghost_attack 8 FPS/ghost_attack_1.tex" type="Texture" id=9]
+[ext_resource path="res://sprites/ghost_attack 8 FPS/ghost_attack_2.tex" type="Texture" id=10]
+[ext_resource path="res://sprites/ghost_attack 8 FPS/ghost_attack_3.tex" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -19,7 +19,7 @@ extents = Vector2( 9.5, 15.5 )
 
 [sub_resource type="SpriteFrames" id=2]
 
-animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ) ], "loop":false, "name":"attack", "speed":8.0 }, { "frames":[ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ], "loop":true, "name":"fly", "speed":12.0 } ]
+animations = [ { "frames":[ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ], "loop":true, "name":"fly", "speed":12.0 }, { "frames":[ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 11 ) ], "loop":false, "name":"attack", "speed":8.0 } ]
 
 [node name="Ghost" type="KinematicBody2D"]
 
@@ -36,6 +36,7 @@ script/script = ExtResource( 1 )
 
 frames = SubResource( 2 )
 animation = "fly"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
