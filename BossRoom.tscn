@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://sprites/bossroom-assets/bg.tex" type="Texture" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends Sprite\n\nfunc _ready():\n\tget_tree().get_nodes_in_group(\"player\")[0].get_node(\"Camera2D\").set_zoom(Vector2(0.6,0.6))"
+script/source = "extends Sprite\n\nfunc _ready():\n\tvar player_camera = get_tree().get_nodes_in_group(\"player\")[0].get_node(\"Camera2D\")\n\tplayer_camera.set_zoom(Vector2(0.6,0.6))\n\tplayer_camera.set_limit(MARGIN_RIGHT, get_texture().get_width())\n\tplayer_camera.set_limit(MARGIN_BOTTOM, get_texture().get_height())"
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -14,7 +15,12 @@ extents = Vector2( 411.491, 10 )
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 83.084, 10 )
+extents = Vector2( 85, 4 )
+
+[sub_resource type="RectangleShape2D" id=6]
+
+custom_solver_bias = 0.0
+extents = Vector2( 2, 90 )
 
 [sub_resource type="RectangleShape2D" id=4]
 
@@ -36,8 +42,11 @@ script/script = SubResource( 1 )
 
 transform/pos = Vector2( 59.8304, 126.03 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Boundaries" type="Node2D" parent="."]
 
+[node name="Floor" type="StaticBody2D" parent="Boundaries"]
+
+editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 328.245, 506.984 )
@@ -49,18 +58,18 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Floor"]
 
 transform/pos = Vector2( 328.245, 506.984 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
-[node name="StaticBody2D1" type="StaticBody2D" parent="."]
+[node name="Ledge" type="StaticBody2D" parent="Boundaries"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 86.6616, 163.242 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 85, 157 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -69,15 +78,44 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Ledge"]
 
-transform/pos = Vector2( 86.6616, 163.242 )
+transform/pos = Vector2( 85, 157 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="LedgeWall" type="StaticBody2D" parent="Boundaries"]
 
+input/pickable = false
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 168, 63 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+one_way_collision/direction = Vector2( -1, 0 )
+one_way_collision/max_depth = 10.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LedgeWall"]
+
+transform/pos = Vector2( 168, 63 )
+shape = SubResource( 6 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Player" parent="Boundaries/LedgeWall" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 88.5832, 104.439 )
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="UpperPlatform" type="StaticBody2D" parent="Platforms"]
+
+editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 4 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 477.882, 286.506 )
@@ -91,14 +129,14 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/UpperPlatform"]
 
 transform/pos = Vector2( 477.882, 286.506 )
 shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+[node name="LowerPlatform" type="StaticBody2D" parent="Platforms"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 5 )
@@ -113,7 +151,7 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LowerPlatform"]
 
 transform/pos = Vector2( 255.023, 355 )
 shape = SubResource( 5 )
