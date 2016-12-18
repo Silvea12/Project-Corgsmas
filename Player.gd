@@ -187,9 +187,7 @@ func flip_corgi(flip_direction):
 		rotate_canon()
 
 func _input(event):
-	if health == 0:
-		return
-	if event.is_action_pressed("fire"):
+	if event.is_action_pressed("fire") and health > 0:
 		canon.emit_signal("fire")
 	elif event.type == InputEvent.MOUSE_MOTION:
 		var viewport_rect = get_viewport_rect().end
