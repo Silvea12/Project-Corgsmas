@@ -32,7 +32,7 @@ script/script = ExtResource( 1 )
 
 frames = SubResource( 2 )
 animation = "default"
-frame = 4
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
