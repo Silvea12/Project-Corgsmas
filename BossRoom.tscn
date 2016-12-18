@@ -367,6 +367,6 @@ transform/scale = Vector2( 2, 2 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 88.5832, 104.439 )
+transform/pos = Vector2( 518.814, 428.943 )
 
 

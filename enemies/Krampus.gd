@@ -5,11 +5,14 @@ signal player_on_platform
 
 onready var sprite = get_node("AnimatedSprite")
 onready var player = get_tree().get_nodes_in_group("player")[0]
+onready var projectile = preload("res://enemies/KrampusProjectile.tscn")
+onready var projectile_pos = get_node("ProjectilePos")
 
 var velocity = Vector2()
 
 const GRAVITY = 1500
 const WALK_SPEED = 100
+const STOMP_DISTANCE = 60
 
 const ACTION_WALK = 0
 const ACTION_ATTACK = 1
@@ -61,7 +64,7 @@ func _fixed_process(delta):
 		apply_animation(ACTION_ATTACK)
 	
 	if curr_anim == ACTION_WALK:
-		if player_distance < 60:
+		if player_distance < STOMP_DISTANCE:
 			if player.get("grounded"):
 				apply_animation(ACTION_SMALL_STOMP)
 			else:
@@ -90,10 +93,12 @@ func _fixed_process(delta):
 
 func _process(delta):
 	if curr_anim != ACTION_WALK:
+		var player_distance = (get_global_pos() - player.get_global_pos()).length()
+		
 		var curr_frame = sprite.get_frame()
 		if curr_frame == anim_length - 1:
 			apply_animation(ACTION_WALK)
-		elif (curr_anim == ACTION_SMALL_STOMP or curr_anim == ACTION_ATTACK) and curr_frame == 2 && !caused_damage:
+		elif (curr_anim == ACTION_SMALL_STOMP or curr_anim == ACTION_ATTACK) and curr_frame == 2 and !caused_damage and player_distance < STOMP_DISTANCE:
 			caused_damage = true
 			var knockback_dir = player.get_global_pos()
 			if sprite.is_flipped_h():
@@ -101,6 +106,22 @@ func _process(delta):
 			else:
 				knockback_dir.x += 1
 			player.emit_signal("hurt", knockback_dir)
+		elif curr_anim == ACTION_ATTACK and player_distance >= STOMP_DISTANCE and curr_frame == 2 and !caused_damage:
+			caused_damage = true
+			var p = projectile.instance()
+			var tmp_pos = projectile_pos.get_pos()
+			if sprite.is_flipped_h():
+				tmp_pos.x = abs(tmp_pos.x)
+			else:
+				tmp_pos.x = -abs(tmp_pos.x)
+			
+			projectile_pos.set_pos(tmp_pos)
+			
+			var spawn_pos = projectile_pos.get_global_pos()
+			var new_rot = projectile_pos.get_angle_to(player.get_global_pos())
+			p.set_rot(new_rot + PI/2)
+			p.set_global_pos(spawn_pos)
+			get_parent().add_child(p)
 
 func _ready():
 	connect("hurt", self, "_hurt")

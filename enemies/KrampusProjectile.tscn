@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://sprites/krampus animations/krampus_coal_projectile  8 FPS/krampus_coal_projectile_0.tex" type="Texture" id=1]
+[ext_resource path="res://sprites/krampus animations/krampus_coal_projectile  8 FPS/krampus_coal_projectile_1.tex" type="Texture" id=2]
+[ext_resource path="res://sprites/krampus animations/krampus_coal_projectile  8 FPS/krampus_coal_projectile_2.tex" type="Texture" id=3]
+[ext_resource path="res://sprites/krampus animations/krampus_coal_projectile  8 FPS/krampus_coal_projectile_3.tex" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 5, 5.5 )
+
+[sub_resource type="GDScript" id=2]
+
+resource/name = "GhostProjectile"
+script/source = "extends KinematicBody2D\n\nvar air_explosion = preload(\"res://explosions/AirExplosion.tscn\")\nvar time_alive = 0\n\nfunc _process(delta):\n\ttime_alive += delta\n\tif time_alive > 10:\n\t\tqueue_free()\n\nfunc _fixed_process(delta):\n\tif is_colliding():\n\t\tvar explosion = air_explosion.instance()\n\t\texplosion.set_global_pos(get_global_pos())\n\t\t\n\t\tget_parent().add_child(explosion)\n\t\tget_collider().emit_signal(\"hurt\")\n\t\tqueue_free()\n\telse:\n\t\tmove(Vector2(-300,0).rotated(get_rot())*delta)\n\nfunc _ready():\n\tset_fixed_process(true)\n\tset_process(true)"
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ { "frames":[ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ], "loop":true, "name":"default", "speed":8.0 } ]
+
+[node name="KrampusProjectile" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 3
+collision/margin = 0.08
+script/script = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+
+transform/pos = Vector2( 2, 0.5 )
+frames = SubResource( 3 )
+animation = "default"
+frame = 3
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+
