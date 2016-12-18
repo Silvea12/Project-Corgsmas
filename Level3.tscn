@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://sprites/lvl3-assets/bg.tex" type="Texture" id=1]
 [ext_resource path="res://WarpZone.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Stick.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -12,6 +13,11 @@ extents = Vector2( 1040, 10 )
 
 custom_solver_bias = 0.0
 extents = Vector2( 31, 3 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 130.379 )
 
 [node name="Level3" type="Sprite" groups=[ "LevelSprite" ]]
 
@@ -68,5 +74,63 @@ transform/scale = Vector2( 0.873372, 2.1793 )
 [node name="SpawnPoint" type="Position2D" parent="."]
 
 transform/pos = Vector2( 23.7758, 217.224 )
+
+[node name="Boundaries" type="Node2D" parent="."]
+
+[node name="LEdge" type="StaticBody2D" parent="Boundaries"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -10, 122.74 )
+shapes/0/trigger = false
+collision/layers = 2
+collision/mask = 2
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 20.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LEdge"]
+
+transform/pos = Vector2( -10, 122.74 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="REdge" type="StaticBody2D" parent="Boundaries"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 2067, 122.74 )
+shapes/0/trigger = false
+collision/layers = 2
+collision/mask = 2
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 20.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/REdge"]
+
+transform/pos = Vector2( 2067, 122.74 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Stick" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 1929.37, 225.004 )
+
+[node name="Stick 2" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 1890.12, 207.243 )
+
+[node name="Stick 3" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 1865.74, 235.04 )
 
 
