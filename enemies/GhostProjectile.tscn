@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://sprites/ghostflame_anim 8FPS/ghostflame_anim_0.tex" type="Texture" id=1]
+[ext_resource path="res://sprites/ghostflame_anim 8FPS/ghostflame_anim_1.tex" type="Texture" id=2]
+[ext_resource path="res://sprites/ghostflame_anim 8FPS/ghostflame_anim_2.tex" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 5, 4.5 )
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends KinematicBody2D\n\nfunc _fixed_process(delta):\n\tif is_colliding():\n\t\tget_collider().emit_signal(\"hurt\")\n\t\tqueue_free()\n\telse:\n\t\tmove(Vector2(-80,0).rotated(get_rot())*delta)\n\nfunc _ready():\n\tset_fixed_process(true)"
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ { "frames":[ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ], "loop":true, "name":"default", "speed":8.0 } ]
+
+[node name="GhostProjectile" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 3
+collision/margin = 0.08
+script/script = SubResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+
+transform/pos = Vector2( 3, 1.5 )
+frames = SubResource( 1 )
+animation = "default"
+frame = 2
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+
