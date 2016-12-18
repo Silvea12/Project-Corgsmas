@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const GRAVITY = 1500
 const MOVE_SPEED = 200
-const JUMP_VELOCITY = 450
+const JUMP_VELOCITY = 550
 const KNOCKBACK_FORCE = 300
 
 signal hurt
