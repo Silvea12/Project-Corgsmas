@@ -22,6 +22,7 @@ var trying_jump = false
 var air_jumps = 0
 var is_flipping = false
 var hurt_cooldown = 0
+var invincible = false
 
 var health = 5
 
@@ -31,6 +32,8 @@ var thought_shown_time = 0
 var death_anim_timer = 0
 
 func _hurt(hit_pos):
+	if invincible:
+		return
 	if hurt_cooldown <= 0:
 		hurt_cooldown = 0.5
 		knockback = Vector2(0,-1).rotated(get_angle_to(hit_pos))*KNOCKBACK_FORCE

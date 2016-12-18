@@ -8,6 +8,7 @@ onready var spikes = preload("res://enemies/Spikes.tscn")
 onready var sprite = get_node("AnimatedSprite")
 onready var player = get_tree().get_nodes_in_group("player")[0]
 onready var projectile_pos = get_node("ProjectilePos")
+onready var health_bar = get_node("ProgressBar")
 
 var velocity = Vector2()
 
@@ -29,8 +30,12 @@ var target_platform
 
 func _hurt(hit_pos):
 	health -= 1
+	health_bar.set_val(health)
 	if health == 0:
-		get_node("/root/CreditsRoller").roll_credits()
+		sprite.set_animation("small_stomp")
+		sprite.stop()
+		sprite.set_frame(1)
+		get_parent().emit_signal("end_game")
 
 func _player_on_platform(platform):
 	target_platform = platform
@@ -56,6 +61,8 @@ func apply_animation(anim):
 	caused_damage = false
 
 func _fixed_process(delta):
+	if health <= 0:
+		return
 	anim_timer += delta
 	
 	var player_distance = player.get_global_pos().distance_to(get_global_pos())

@@ -7,7 +7,7 @@
 [sub_resource type="GDScript" id=1]
 
 resource/name = "BossRoom"
-script/source = "extends Sprite\n\nfunc _ready():\n\tvar player_camera = get_tree().get_nodes_in_group(\"player\")[0].get_node(\"Camera2D\")\n\tplayer_camera.set_zoom(Vector2(0.6,0.6))\n\tplayer_camera.set_limit(MARGIN_RIGHT, get_texture().get_width())\n\tplayer_camera.set_limit(MARGIN_BOTTOM, get_texture().get_height())"
+script/source = "extends Sprite\n\nsignal end_game\n\nconst VOLUME = 0.8\n\nonready var player = get_tree().get_nodes_in_group(\"player\")[0]\n\nvar music = preload(\"res://music/boss.opus\")\n\nvar fade_time = 0\nvar freed_nodes = false\n\nfunc _end_game():\n\tplayer.set(\"invincible\", true)\n\tset_process(true)\n\t\nfunc _process(delta):\n\tfade_time += delta\n\tvar opacity = 1-(fade_time/2)\n\tif opacity < 0:\n\t\topacity = 0\n\t\tif !freed_nodes:\n\t\t\tfreed_nodes = true\n\t\t\tget_node(\"Krampus\").queue_free()\n\t\t\tget_node(\"Platforms\").queue_free()\n\tset_opacity(opacity)\n\tif fade_time >= 3:\n\t\topacity = 1-((fade_time-3)/2)\n\t\tget_node(\"/root/Main\").set_opacity(opacity)\n\tif fade_time >= 5:\n\t\tget_node(\"/root/CreditsRoller\").roll_credits()\n\t\n\tget_node(\"/root/Main/StreamPlayer\").set_volume((1-(fade_time/5))*VOLUME)\n\nfunc _ready():\n\tconnect(\"end_game\", self, \"_end_game\")\n\tvar player_camera = get_tree().get_nodes_in_group(\"player\")[0].get_node(\"Camera2D\")\n\tplayer_camera.set_zoom(Vector2(0.6,0.6))\n\tplayer_camera.set_limit(MARGIN_RIGHT, get_texture().get_width())\n\tplayer_camera.set_limit(MARGIN_BOTTOM, get_texture().get_height())\n\tvar stream_player = get_node(\"/root/Main/StreamPlayer\")\n\tstream_player.set_stream(music)\n\tstream_player.set_volume(VOLUME)\n\tstream_player.play()"
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -279,6 +279,8 @@ _update_shape_index = 0
 
 [node name="Platforms" type="Node2D" parent="."]
 
+editor/display_folded = true
+
 [node name="UpperPlatform" type="StaticBody2D" parent="Platforms" groups=[ "ground" ]]
 
 input/pickable = false
@@ -352,6 +354,7 @@ _update_shape_index = 0
 
 [node name="UpperPlatformArea" type="Area2D" parent="Platforms"]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 20 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 477.882, 276.506 )

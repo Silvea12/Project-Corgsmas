@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://credit_roll_bg.tex" type="Texture" id=1]
 [ext_resource path="res://fonts/Tandysoft.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://music/credits.opus" type="AudioStream" id=3]
 
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="StyleBoxTexture" id=1]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -20,13 +21,13 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="Theme" id=1]
+[sub_resource type="Theme" id=2]
 
 default_font = ExtResource( 2 )
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=3]
 
-resource/name = "CreditsRTL"
+resource/name = "Credits"
 script/source = "extends RichTextLabel\n\nfunc end_credits():\n\tget_tree().quit()\n\nfunc _meta_clicked(meta):\n\tOS.shell_open(meta)\n\nfunc _ready():\n\tconnect(\"meta_clicked\", self, \"_meta_clicked\")"
 
 [sub_resource type="Animation" id=4]
@@ -55,6 +56,11 @@ tracks/3/path = NodePath("RichTextLabel")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = { "times":FloatArray( 35.6 ), "transitions":FloatArray( 1 ), "values":[ { "args":[  ], "method":"end_credits" } ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("StreamPlayer:stream/volume_db")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = { "times":FloatArray( 32, 35 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ -10.0, -80.0 ] }
 
 [node name="Credits" type="Panel"]
 
@@ -67,7 +73,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 1024.0
 margin/bottom = 600.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 
@@ -75,15 +81,15 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = SubResource( 1 )
+theme/theme = SubResource( 2 )
 margin/left = 0.0
 margin/top = 564.0
 margin/right = 1024.0
 margin/bottom = 2103.0
 bbcode/enabled = true
-bbcode/bbcode = "[center]\nCredits:\n\n(Links are at the end)\n\nGame Design: Armin Hubert\nGame Programming: Andrew Silver\nMemes: Armin Hubert / Andrew Silver\nCorgi Puns: [img]res://sprites/corgi_walk/corgiwalk_0.tex[/img]\nIndie Game References: Armin Hubert\nSpoopiness: [img]res://sprites/ghost frames/ghost_anim_3.tex[/img]\nLots of Rage, Death and Bugs: [img]res://sprites/krampus animations/krampus_attack 8 FPS/attack_3.tex[/img]\n\nAndrew Silver:\n - Twitter: [color=aqua][url=https://twitter.com/Silvea12]@Silvea12[/url][/color] -\n - Github: [color=aqua][url=https://github.com/Silvea12]Silvea12[/url][/color] -\n - Picarto: [color=aqua][url=https://picarto.tv/Pikachu]Pikachu[/url][/color] -\n - Itch: [color=aqua][url=https://silvea12.itch.io/]silvea12.itch.io[/url][/color] -\n\nXormak / Armin Hubert:\n - DeviantArt: [color=lime][url=http://xormak.deviantart.com/]Xormak.deviantart.com[/url][/color] -\n - Picarto: [color=lime][url=https://picarto.tv/xormak]Picarto.TV/Xormak[/url][/color] -\n - Tumblr: [color=lime][url=http://thexormak.tumblr.com/]TheXormak.tumblr.com[/url][/color] -\n - Itch: [color=lime][url=https://xormak.itch.io/]Xormak.itch.io[/url][/color] -\n\n\n\n\n\n\n\n\nThank you for playing!\n[/center]"
+bbcode/bbcode = "[center]\nCredits:\n\n(Links are at the end)\n\nGame Design: Armin Hubert\nGame Programming: Andrew Silver\nMemes: Armin Hubert / Andrew Silver\nCorgi Puns: [img]res://sprites/corgi_walk/corgiwalk_0.tex[/img]\nIndie Game References: Armin Hubert\nSpoopiness: [img]res://sprites/ghost frames/ghost_anim_3.tex[/img]\nLots of Rage, Death and Bugs: [img]res://sprites/krampus animations/krampus_attack 8 FPS/attack_3.tex[/img]\n\nAndrew Silver:\n - Twitter: [color=aqua][url=https://twitter.com/Silvea12]@Silvea12[/url][/color] -\n - Github: [color=aqua][url=https://github.com/Silvea12]github.com/Silvea12[/url][/color] -\n - Picarto: [color=aqua][url=https://picarto.tv/Pikachu]Picarto.TV/Pikachu[/url][/color] -\n - Itch: [color=aqua][url=https://silvea12.itch.io/]silvea12.itch.io[/url][/color] -\n\nXormak / Armin Hubert:\n - DeviantArt: [color=lime][url=http://xormak.deviantart.com/]Xormak.deviantart.com[/url][/color] -\n - Picarto: [color=lime][url=https://picarto.tv/xormak]Picarto.TV/Xormak[/url][/color] -\n - Tumblr: [color=lime][url=http://thexormak.tumblr.com/]TheXormak.tumblr.com[/url][/color] -\n - Itch: [color=lime][url=https://xormak.itch.io/]Xormak.itch.io[/url][/color] -\n\n\n\n\n\n\n\n\nThank you for playing!\n[/center]"
 visible_characters = -1
-script/script = SubResource( 2 )
+script/script = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
@@ -95,5 +101,16 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "CreditsPreload"
+
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 3 )
+stream/play = false
+stream/loop = true
+stream/volume_db = -10.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
 
 
